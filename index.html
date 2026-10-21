@@ -117,7 +117,7 @@ footer a{color:var(--fg)}
 .jump::-webkit-scrollbar{display:none}
 .jump a{flex:none;font-size:14px;font-weight:600;color:var(--fg);text-decoration:none;border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:7px 14px}
 .jump a.on{background:var(--accent);border-color:var(--accent);color:#fff}
-.chap{display:flex;flex-direction:column;gap:clamp(22px,3vw,34px);scroll-margin-top:64px}
+.chap{scroll-margin-top:64px}
 .chap-h{display:flex;flex-direction:column;gap:6px}
 .chap-h .num{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-weight:700}
 .chap-h h2{font-size:clamp(30px,5vw,44px)}
@@ -153,6 +153,29 @@ button.hb[aria-pressed=true] .nm{color:var(--accent);font-weight:800}
 @keyframes pop{from{opacity:0;transform:translateY(6px)}}
 .count{font-size:14px;color:var(--muted)}
 @media (prefers-reduced-motion:reduce){.drift,.note-f{animation:none}}
+
+/* navegación tipo app (como Datos 29N) */
+.tabs{position:sticky;top:10px;z-index:40;display:flex;gap:4px;margin-inline:auto;width:fit-content;max-width:100%;padding:5px;border:1px solid var(--line);border-radius:999px;background:color-mix(in srgb,var(--panel) 85%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 6px 24px rgba(0,0,0,.08);overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tabs a{display:flex;align-items:center;gap:7px;padding:9px 15px;border-radius:999px;text-decoration:none;color:var(--muted);font-weight:600;font-size:14px;white-space:nowrap}
+.tabs a svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.tabs a[aria-current=page]{background:var(--fg);color:var(--bg)}
+.tabs a:hover:not([aria-current=page]){color:var(--fg)}
+@media(max-width:760px){
+  .tabs{position:fixed;top:auto;left:0;right:0;bottom:0;width:auto;margin:0;border-radius:0;border:0;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:0;padding:6px max(4px,env(safe-area-inset-right,0px)) calc(6px + env(safe-area-inset-bottom,0px)) max(4px,env(safe-area-inset-left,0px));background:var(--panel);box-shadow:0 -4px 16px rgba(0,0,0,.08);overflow:visible}
+  .tabs a{flex-direction:column;gap:3px;padding:7px 0;border-radius:10px;font-size:10.5px;min-height:52px;justify-content:center}
+  .tabs a svg{width:22px;height:22px;stroke-width:1.9}
+  .tabs a[aria-current=page]{background:var(--bg);color:var(--accent)}
+  body{padding-bottom:calc(78px + env(safe-area-inset-bottom,0px))}
+}
+.view[hidden]{display:none!important}
+.view{display:flex;flex-direction:column;gap:clamp(20px,3vw,34px)}
+.view.enter{animation:vin .45s cubic-bezier(.2,.8,.2,1)}
+@keyframes vin{from{opacity:0;transform:translateY(14px)}}
+.nextv{display:flex;flex-direction:column;gap:4px;padding:18px 20px;border:1px solid var(--line);border-radius:16px;background:var(--panel);color:var(--fg);text-decoration:none;transition:translate .2s,box-shadow .2s}
+.nextv:hover{translate:0 -2px;box-shadow:0 10px 26px rgba(0,0,0,.1)}
+.nextv small{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.nextv b{font-family:var(--serif);font-size:clamp(22px,3vw,28px)}
 /* banners ilustrados */
 .banner{position:relative;height:clamp(150px,26vw,230px);border-radius:20px;overflow:hidden;background:var(--bnbg,linear-gradient(160deg,#0c2a36,#166170));isolation:isolate}
 .banner svg,.banner canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
@@ -200,24 +223,28 @@ button.hb[aria-pressed=true] .nm{color:var(--accent);font-weight:800}
 </head>
 <body>
 <div class="wrap">
+  <nav class="tabs" id="tabs" aria-label="Apartados"><a href="#inicio" data-go="inicio"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-7 9 7v9a1 1 0 01-1 1h-5v-6h-6v6H4a1 1 0 01-1-1z"/></svg><span>Inicio</span></a><a href="#gente" data-go="gente"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17" cy="9" r="2.6"/><path d="M15.5 14.2c3 .3 5.5 2.6 5.5 5.8"/></svg><span>Gente</span></a><a href="#elecciones" data-go="elecciones"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16v8H4zM8 12V5h8v7M10 8.5h4"/></svg><span>Votos</span></a><a href="#trabajo" data-go="trabajo"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="14" r="3"/><circle cx="15" cy="14" r="3"/><circle cx="12" cy="9" r="3"/><path d="M12 6V3M12 3l3-1"/></svg><span>Trabajo</span></a><a href="#negocios" data-go="negocios"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9l1.5-5h15L21 9M3 9h18v2a3 3 0 01-6 0 3 3 0 01-6 0 3 3 0 01-6 0zM5 13v7h14v-7M10 20v-4h4v4"/></svg><span>Negocios</span></a><a href="#fiestas" data-go="fiestas"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M5.6 5.6l2.8 2.8M15.6 15.6l2.8 2.8M5.6 18.4l2.8-2.8M15.6 8.4l2.8-2.8"/><circle cx="12" cy="12" r="1.6"/></svg><span>Fiestas</span></a><a href="#banda" data-go="banda"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V5l11-2v13"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="17.5" cy="16" r="2.5"/></svg><span>Banda</span></a></nav>
+
+  <div class="view" id="inicio" data-title="Inicio">
   <header class="hero">
     <svg class="spark" id="spark" viewBox="0 0 1000 300" preserveAspectRatio="none" aria-hidden="true"></svg>
     <p class="kick">Ontur · Albacete · Castilla-La Mancha</p>
     <h1>Ontur en datos</h1>
     <div class="hero-num"><span class="n" id="hero-n" data-to="0">0</span><span class="u">vecinos y vecinas en 2024</span></div>
     <p class="lead" id="lead">Cargando datos…</p>
-    <p class="scrollhint"><i></i> Baja para ver cómo ha cambiado el pueblo</p>
+    <p class="scrollhint"><i></i> Baja para ver las cifras, o elige un apartado en los botones</p>
   </header>
   <div class="kpis rv" id="kpis"></div>
-
-  <nav class="jump" id="jump" aria-label="Apartados"><a href="#gente">La gente</a><a href="#elecciones">Las elecciones</a><a href="#trabajo">El trabajo</a><a href="#negocios">Los negocios</a><a href="#fiestas">Las fiestas</a><a href="#banda">La banda</a></nav>
 
   <section class="rv">
     <h2>¿Sabías que…?</h2>
     <div class="facts" id="facts"></div>
   </section>
 
-  <div class="chap" id="gente">
+    <a class="nextv" href="#gente" data-go="gente"><small>Siguiente</small><b>La gente →</b></a>
+  </div>
+
+  <div class="chap view" hidden id="gente">
     <div class="banner rv" style="--bnbg:linear-gradient(160deg,#0c2a36,#1b6c7c)" data-ill="casas"><div class="bt"><span>1 · La gente</span><b>Cuántos somos</b></div></div>
     <div class="photos" data-sec="gente" hidden></div>
     <div class="chap-h rv"><p class="note">Cuánta gente vive en Ontur, desde 1900, y cuántos nacen y mueren cada año.</p></div>
@@ -239,8 +266,9 @@ button.hb[aria-pressed=true] .nm{color:var(--accent);font-weight:800}
       <div class="chart" id="c-nat"></div>
     </div>
   </section>
+    <a class="nextv" href="#elecciones" data-go="elecciones"><small>Siguiente</small><b>Las elecciones →</b></a>
   </div>
-  <div class="chap" id="elecciones">
+  <div class="chap view" hidden id="elecciones">
     <div class="banner rv" style="--bnbg:linear-gradient(160deg,#1d2b4a,#36507f)" data-ill="urna"><div class="bt"><span>2 · Las elecciones</span><b>Cómo votamos</b></div></div>
     <div class="photos" data-sec="elecciones" hidden></div>
     <div class="chap-h rv"><p class="note">Quién ha ganado cada elección, cómo ha cambiado el voto y cómo queda el Ayuntamiento.</p></div>
@@ -295,8 +323,9 @@ button.hb[aria-pressed=true] .nm{color:var(--accent);font-weight:800}
       <div class="tw"><table id="tabla"><thead><tr><th>Elección</th><th>PSOE</th><th>PP</th><th>Vox</th><th>Cs</th><th>Podemos, IU y Sumar</th><th>Otros</th><th>Participación</th></tr></thead><tbody></tbody></table></div>
     </div>
   </section>
+    <a class="nextv" href="#trabajo" data-go="trabajo"><small>Siguiente</small><b>El trabajo →</b></a>
   </div>
-  <div class="chap" id="trabajo">
+  <div class="chap view" hidden id="trabajo">
     <div class="banner rv" style="--bnbg:linear-gradient(160deg,#3a1f2b,#7a3a4a)" data-ill="vinas"><div class="bt"><span>3 · El trabajo</span><b>De qué vive Ontur</b></div></div>
     <div class="photos" data-sec="trabajo" hidden></div>
     <div class="chap-h rv"><p class="note">El campo y la cooperativa, cuánta gente trabaja, el paro y lo que se gana.</p></div>
@@ -348,8 +377,9 @@ button.hb[aria-pressed=true] .nm{color:var(--accent);font-weight:800}
       <div class="chart" id="c-renta"></div>
     </div>
   </section>
+    <a class="nextv" href="#negocios" data-go="negocios"><small>Siguiente</small><b>Los negocios →</b></a>
   </div>
-  <div class="chap" id="negocios">
+  <div class="chap view" hidden id="negocios">
     <div class="banner rv" style="--bnbg:linear-gradient(160deg,#24323a,#3f5a63)" data-ill="tiendas"><div class="bt"><span>4 · Los negocios</span><b>Las empresas del pueblo</b></div></div>
     <div class="photos" data-sec="negocios" hidden></div>
     <div class="chap-h rv"><p class="note">Qué empresas tienen su sede en Ontur y a qué se dedican.</p></div>
@@ -370,9 +400,10 @@ button.hb[aria-pressed=true] .nm{color:var(--accent);font-weight:800}
       <p class="note" style="font-size:13px">Lista del directorio de empresas de <a href="https://www.axesor.es/directorio-informacion-empresas/empresas-de-Albacete/informacion-empresas-de-Ontur/1">Axesor</a>, que recoge las sociedades inscritas en el Registro Mercantil con domicilio en Ontur. Puede incluir empresas que ya no tienen actividad y no incluye a los autónomos que trabajan a su nombre (que son muchos: 176 afiliados como autónomos).</p>
     </div>
   </section>
+    <a class="nextv" href="#fiestas" data-go="fiestas"><small>Siguiente</small><b>Las fiestas →</b></a>
   </div>
 
-  <div class="chap" id="fiestas">
+  <div class="chap view" hidden id="fiestas">
     <div class="banner rv" style="--bnbg:linear-gradient(160deg,#120b2a,#3b1d5e)" data-ill="fuegos"><div class="bt"><span>5 · Las fiestas</span><b>San José y el verano</b></div></div>
     <div class="photos" data-sec="fiestas" hidden></div>
     <div class="chap-h rv"><p class="note">Ontur tiene dos fiestas grandes: las de primavera, en honor a San José, patrón del pueblo, alrededor del 19 de marzo, y las fiestas de verano, entre finales de julio y mediados de agosto.</p></div>
@@ -415,8 +446,9 @@ button.hb[aria-pressed=true] .nm{color:var(--accent);font-weight:800}
         <p class="note" style="font-size:12.5px">Fuentes: <a href="https://masquealba.com/ontur-se-prepara-para-vivir-unas-fiestas-de-verano-repletas-de-musica-tradicion-y-actividades-para-todas-las-edades/">MASQUEALBA (30-jul-2026)</a>; <a href="https://www.eldigitaldealbacete.com/2026/08/15/15-de-agosto-media-provincia-de-albacete-esta-en-fiestas/">El Digital de Albacete (15-ago-2026)</a>.</p>
       </div>
     </section>
+    <a class="nextv" href="#banda" data-go="banda"><small>Siguiente</small><b>La banda →</b></a>
   </div>
-  <div class="chap" id="banda">
+  <div class="chap view" hidden id="banda">
     <div class="banner rv" style="--bnbg:linear-gradient(160deg,#2a1a08,#7a4f12)" data-ill="notas"><div class="bt"><span>6 · La banda</span><b>Más de 150 años de música</b></div></div>
     <div class="photos" data-sec="banda" hidden></div>
     <div class="chap-h rv"><p class="note">La Banda Municipal de Música de Ontur sitúa sus primeras notas en 1868. Acompaña a San José en procesión, despierta al pueblo con la diana del día grande y llena de pasodobles las fiestas.</p></div>
@@ -456,6 +488,7 @@ button.hb[aria-pressed=true] .nm{color:var(--accent);font-weight:800}
         </div>
       </div>
     </section>
+    <a class="nextv" href="#inicio" data-go="inicio"><small>Volver al principio</small><b>Inicio →</b></a>
   </div>
 
   <footer>
@@ -493,7 +526,7 @@ function compute(D){
 }
 
 function tipBox(el){let t=el.querySelector('.tip');if(!t){t=document.createElement('div');t.className='tip';t.hidden=true;el.appendChild(t)}return t}
-function lineChart(el,series,{yFmt,yMin=0,yMax,ticks}){const anim=!REDUCE&&!el.dataset.drawn;el.dataset.drawn='1';
+function lineChart(el,series,{yFmt,yMin=0,yMax,ticks}){if(!el.clientWidth)return;const anim=!REDUCE&&!el.dataset.drawn;el.dataset.drawn='1';
   el.innerHTML='';const W=el.clientWidth,H=el.classList.contains('tall')?300:260,m={t:14,r:16,b:28,l:44};
   const all=series.flatMap(s=>s.pts);if(!all.length)return;
   const x=d3.scaleUtc(d3.extent(all,p=>p.x),[m.l,W-m.r]);const y=d3.scaleLinear([yMin,yMax??d3.max(all,p=>p.y)*1.1],[H-m.b,m.t]).nice();
@@ -593,7 +626,7 @@ function hbars(el,rows,opt={}){el.textContent='';const mx=Math.max(...rows.map(r
   const run=()=>requestAnimationFrame(()=>requestAnimationFrame(()=>go.forEach((g,i)=>setTimeout(g,i*90))));
   el._run=run;el._reset=()=>el.querySelectorAll('.fl').forEach(f=>f.style.width='0');
   if(!el.dataset.rp){el.dataset.rp=1;replay(el,()=>el._run(),()=>el._reset())}else if(el.dataset.inview!=='0')run()}
-function barChart(el,data,keys,colors){el.innerHTML='';const anim=!REDUCE&&!el.dataset.drawn;el.dataset.drawn='1';
+function barChart(el,data,keys,colors){if(!el.clientWidth)return;el.innerHTML='';const anim=!REDUCE&&!el.dataset.drawn;el.dataset.drawn='1';
   const W=el.clientWidth,H=260,m={t:12,r:8,b:26,l:32};const x0=d3.scaleBand(data.map(d=>d.anio),[m.l,W-m.r]).paddingInner(.2);
   const x1=d3.scaleBand(keys,[0,x0.bandwidth()]).padding(.08);const y=d3.scaleLinear([0,d3.max(data,d=>d3.max(keys,k=>d[k]))*1.1],[H-m.b,m.t]).nice();
   const svg=d3.select(el).append('svg').attr('width','100%').attr('viewBox',`0 0 ${W} ${H}`);
@@ -676,7 +709,7 @@ function fireworks(b){const cv=document.createElement('canvas');b.insertBefore(c
     P.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=.035;p.vx*=.985;p.l-=.012;ctx.globalAlpha=Math.max(0,p.l);ctx.fillStyle=p.c;ctx.beginPath();ctx.arc(p.x,p.y,1.8,0,7);ctx.fill()});ctx.globalAlpha=1;P=P.filter(p=>p.l>0);if(run)raf=requestAnimationFrame(step)};
   ctx.fillStyle='#120b2a';ctx.fillRect(0,0,W,H);
   if(REDUCE){burst();for(let i=0;i<30;i++)step();return}
-  new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting&&!run){run=true;burst();step()}else if(!e.isIntersecting){run=false;cancelAnimationFrame(raf)}})).observe(b)}
+  new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting&&!run){size();ctx.fillStyle='#120b2a';ctx.fillRect(0,0,W,H);run=true;burst();step()}else if(!e.isIntersecting){run=false;cancelAnimationFrame(raf)}})).observe(b)}
 document.querySelectorAll('.banner[data-ill]').forEach(ill);
 /* ---------- cuenta atrás a San José ---------- */
 (function(){const T=Date.UTC(2027,2,18,23,0,0);const f=v=>String(v).padStart(2,'0');
@@ -686,6 +719,22 @@ document.querySelectorAll('#banda-n .cu').forEach(b=>whenSeen(b,()=>countUp(b,+b
 /* ---------- fotos (carpeta fotos/, lista en fotos/fotos.json) ---------- */
 fetch('fotos/fotos.json').then(r=>r.ok?r.json():[]).then(L=>{(L||[]).forEach(p=>{const box=document.querySelector('.photos[data-sec="'+p.seccion+'"]');if(!box)return;box.hidden=false;
   const f=document.createElement('figure'),im=document.createElement('img');im.src='fotos/'+p.archivo;im.alt=p.pie||'';im.loading='lazy';const c=document.createElement('figcaption');c.textContent=p.pie||'';if(p.autor){const sm=document.createElement('small');sm.textContent='Foto: '+p.autor;c.appendChild(sm)}f.append(im,c);box.appendChild(f)})}).catch(()=>{});
+
+
+/* ---------- vistas tipo app: siempre empieza en la portada ---------- */
+if('scrollRestoration' in history)history.scrollRestoration='manual';
+const VIEWS=[...document.querySelectorAll('.view')].map(v=>v.id);
+function show(v,mode){if(!VIEWS.includes(v))v='inicio';
+  document.querySelectorAll('.view').forEach(x=>{x.hidden=x.id!==v;x.classList.remove('enter')});
+  const cur=document.getElementById(v);void cur.offsetWidth;if(!REDUCE)cur.classList.add('enter');
+  document.querySelectorAll('#tabs a').forEach(a=>{if(a.dataset.go===v)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});
+  window.scrollTo(0,0);
+  if(mode==='push')history.pushState({v},'',v==='inicio'?location.pathname:'#'+v);
+  if(window.__ready){draw();economy()}
+  dispatchEvent(new Event('resize'));}
+document.addEventListener('click',e=>{const a=e.target.closest&&e.target.closest('[data-go]');if(!a)return;e.preventDefault();show(a.dataset.go,'push')});
+addEventListener('popstate',()=>show((location.hash||'#inicio').slice(1)));
+history.replaceState({v:'inicio'},'',location.pathname);show('inicio');
 
 let E;
 
@@ -738,7 +787,7 @@ function draw(){
     const tp=document.createElement('td');tp.textContent=pf(p.pct);tr.appendChild(tp);tb.appendChild(tr)});
 }
 Promise.all(['poblacion','votos','participacion','censo','afiliados','paro','renta','nacimientos','empresas'].map(f=>d3.csv('datos/'+f+'.csv'))).then(([poblacion,votos,participacion,censo,afiliados,paro,renta,nacimientos,empresas])=>{
-  votos.forEach(v=>v.votos=+v.votos);D={poblacion,votos,participacion,censo};E={afiliados,paro,renta,nacimientos,empresas};C=compute(D);draw();economy();
+  votos.forEach(v=>v.votos=+v.votos);D={poblacion,votos,participacion,censo};E={afiliados,paro,renta,nacimientos,empresas};C=compute(D);window.__ready=1;draw();economy();
   let w=innerWidth,t;addEventListener('resize',()=>{clearTimeout(t);t=setTimeout(()=>{if(innerWidth!==w){w=innerWidth;draw();economy()}},200)});
   matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>{draw();economy()});
 }).catch(()=>{document.getElementById('lead').innerHTML='<span class="err">No se han podido cargar los datos. Recarga la página.</span>'});
