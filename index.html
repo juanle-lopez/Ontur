@@ -16,11 +16,11 @@
 <style>
 /* Layout: una columna de lectura con tarjetas; dos columnas de gráficos cuando hay sitio */
 :root{
-  --bg:#f3f4ef; --panel:#ffffff; --fg:#1c221e; --muted:#5b655d; --line:#dde2d8; --accent:#5c7a3e; --grid:#e8ebe4;
+  --bg:#f2f5f6; --panel:#ffffff; --fg:#14232a; --muted:#56666d; --line:#d9e2e5; --accent:#16707f; --sand:#e9b949; --grid:#e6edef;
   --serif:'Fraunces',Georgia,'Times New Roman',serif; --sans:'Figtree',system-ui,-apple-system,'Segoe UI',sans-serif;
-  --c1:#3d6b8f; --c2:#b0793a; --muted-chart:#a3aaa2;
+  --c1:#1b7a8c; --c2:#c47d2c; --muted-chart:#a2adb1;
 }
-@media (prefers-color-scheme:dark){:root{--bg:#141815;--panel:#1c211d;--fg:#e9ede7;--muted:#a3ada4;--line:#2e352f;--accent:#9cbb7c;--grid:#262c27;--c1:#7fb0d6;--c2:#d9a463;--muted-chart:#6c756d;color-scheme:dark}}
+@media (prefers-color-scheme:dark){:root{--bg:#0f1719;--panel:#172124;--fg:#e6eef0;--muted:#9fb0b5;--line:#26353a;--accent:#6cc3d1;--sand:#f0c860;--grid:#1f2c30;--c1:#62c0d0;--c2:#e2a457;--muted-chart:#5f6f74;color-scheme:dark}}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.5 var(--sans);font-variant-numeric:tabular-nums;-webkit-text-size-adjust:100%}
 .wrap{max-width:1120px;margin-inline:auto;padding-block:clamp(20px,5vw,48px) 40px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:clamp(28px,4vw,44px)}
@@ -72,17 +72,17 @@ footer p{margin:0 0 8px}
 footer a{color:var(--fg)}
 .err{color:var(--muted)}
 /* hero */
-.hero{position:relative;border-radius:22px;overflow:hidden;background:linear-gradient(160deg,#20301f 0%,#2f4a2a 55%,#4d6a35 100%);color:#f2f5ee;padding:clamp(22px,5vw,48px);display:grid;gap:18px}
-.hero .kick{color:#cfe3a8}
+.hero{position:relative;border-radius:22px;overflow:hidden;background:radial-gradient(120% 90% at 85% 10%,#2a8a96 0%,rgba(42,138,150,0) 55%),linear-gradient(160deg,#0c2a36 0%,#0f4352 55%,#166170 100%);color:#eef6f7;padding:clamp(22px,5vw,48px);display:grid;gap:18px}
+.hero .kick{color:#f3cf72}
 .hero h1{color:#fff}
-.hero .lead{color:#dfe8d6}
+.hero .lead{color:#d6e8eb}
 .hero .lead b{color:#fff}
 .hero-num{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
 .hero-num .n{font-family:var(--serif);font-size:clamp(64px,14vw,132px);line-height:.9;font-weight:600;letter-spacing:-.03em;color:#fff}
-.hero-num .u{font-size:clamp(18px,2.6vw,24px);color:#cfe3a8}
-.hero svg.spark{position:absolute;inset:auto 0 0 0;width:100%;height:42%;opacity:.38;pointer-events:none}
+.hero-num .u{font-size:clamp(18px,2.6vw,24px);color:#f3cf72}
+.hero svg.spark{position:absolute;inset:auto 0 0 0;width:100%;height:30%;opacity:.4;pointer-events:none}
 .hero>*:not(svg){position:relative}
-.scrollhint{font-size:13px;color:#cfe3a8;display:flex;align-items:center;gap:8px}
+.scrollhint{font-size:13px;color:#f3cf72;display:flex;align-items:center;gap:8px}
 .scrollhint i{display:inline-block;width:8px;height:8px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg);animation:bob 1.6s infinite}
 @keyframes bob{50%{transform:translateY(4px) rotate(45deg)}}
 /* revelado */
@@ -109,10 +109,50 @@ footer a{color:var(--fg)}
 .bar .v small{display:block;color:var(--muted);font-size:12px}
 @media(max-width:520px){.bar{grid-template-columns:6.2rem 1fr 4.6rem}}
 .facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,15rem),1fr));gap:12px}
-.fact{background:var(--panel);border:1px solid var(--line);border-left:5px solid var(--accent);border-radius:14px;padding:14px 16px}
+.fact{background:var(--panel);border:1px solid var(--line);border-left:5px solid var(--sand);border-radius:14px;padding:14px 16px}
 .fact b{display:block;font-family:var(--serif);font-size:30px;line-height:1.1;margin-bottom:4px}
 .fact span{color:var(--muted);font-size:14.5px}
-@media (prefers-reduced-motion:reduce){.rv,.win,.dots i{opacity:1!important;transform:none!important;transition:none!important}.bar .fl{transition:none}.scrollhint i{animation:none}}
+
+.jump{position:sticky;top:0;z-index:20;display:flex;gap:6px;overflow-x:auto;padding:10px max(16px,env(safe-area-inset-left,0px));margin-inline:calc(-1*max(16px,env(safe-area-inset-left,0px)));background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);scrollbar-width:none}
+.jump::-webkit-scrollbar{display:none}
+.jump a{flex:none;font-size:14px;font-weight:600;color:var(--fg);text-decoration:none;border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:7px 14px}
+.jump a.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.chap{display:flex;flex-direction:column;gap:clamp(22px,3vw,34px);scroll-margin-top:64px}
+.chap-h{display:flex;flex-direction:column;gap:6px}
+.chap-h .num{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-weight:700}
+.chap-h h2{font-size:clamp(30px,5vw,44px)}
+.coop{display:grid;gap:16px;background:linear-gradient(150deg,#3a1f2b 0%,#5b2a3b 60%,#7a3a4a 100%);color:#fbeff2;border-radius:18px;padding:clamp(18px,4vw,32px)}
+.coop h3{font-family:var(--serif);font-size:clamp(24px,3.6vw,32px);margin:0;color:#fff}
+.coop p{margin:0;color:#f1d9df;max-width:65ch}
+.coop .cn{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,10rem),1fr));gap:10px}
+.coop .cn div{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:12px}
+.coop .cn b{display:block;font-family:var(--serif);font-size:30px;color:#fff;line-height:1.1}
+.coop .cn span{font-size:13px;color:#f1d9df}
+.tl{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,12rem),1fr));gap:10px}
+.tl li{border-top:3px solid #f3cf72;padding-top:8px}
+.tl b{display:block;font-family:var(--serif);font-size:24px;color:#fff}
+.tl span{font-size:14px;color:#f1d9df}
+.coop small{color:#e7c3cc;font-size:12.5px}
+.coop small a{color:#fff}
+.hbars{display:flex;flex-direction:column;gap:8px}
+.hb{display:grid;grid-template-columns:minmax(0,11rem) minmax(4rem,1fr) 2.8rem;gap:10px;align-items:center;font-size:14.5px;background:none;border:0;padding:0;color:var(--fg);text-align:left;font-family:inherit;width:100%}
+button.hb{cursor:pointer;border-radius:8px}
+button.hb[aria-pressed=true] .nm{color:var(--accent);font-weight:800}
+.hb .nm{font-weight:600;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hb .tr{display:block;height:16px;background:var(--grid);border-radius:999px;overflow:hidden}
+.hb .fl{height:100%;width:0;border-radius:999px;background:var(--accent);transition:width 1s cubic-bezier(.2,.8,.2,1)}
+.hb .v{text-align:right;font-weight:700}
+.big1{font-family:var(--serif);font-size:clamp(40px,7vw,60px);line-height:1;font-weight:600}
+.dir-tools{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.dir-tools input{flex:1 1 220px;font:inherit;font-size:16px;padding:10px 14px;border:1px solid var(--line);border-radius:999px;background:var(--panel);color:var(--fg);min-height:44px}
+.dir-tools input:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.dir{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,15rem),1fr));gap:8px;max-height:560px;overflow:auto;padding:2px}
+.biz{border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:10px;padding:9px 12px;background:var(--panel);display:flex;flex-direction:column;gap:2px;animation:pop .35s ease both}
+.biz b{font-size:15px}
+.biz span{font-size:12.5px;color:var(--muted)}
+@keyframes pop{from{opacity:0;transform:translateY(6px)}}
+.count{font-size:14px;color:var(--muted)}
+@media (prefers-reduced-motion:reduce){.biz{animation:none}.rv,.win,.dots i{opacity:1!important;transform:none!important;transition:none!important}.bar .fl{transition:none}.scrollhint i{animation:none}}
 
 </style>
 </head>
@@ -126,14 +166,38 @@ footer a{color:var(--fg)}
     <p class="lead" id="lead">Cargando datos…</p>
     <p class="scrollhint"><i></i> Baja para ver cómo ha cambiado el pueblo</p>
   </header>
-
   <div class="kpis rv" id="kpis"></div>
+
+  <nav class="jump" id="jump" aria-label="Apartados"><a href="#gente">La gente</a><a href="#elecciones">Las elecciones</a><a href="#trabajo">El trabajo</a><a href="#negocios">Los negocios</a></nav>
 
   <section class="rv">
     <h2>¿Sabías que…?</h2>
     <div class="facts" id="facts"></div>
   </section>
 
+  <div class="chap" id="gente">
+    <div class="chap-h rv"><span class="num">1 · La gente</span><h2>Cuántos somos</h2><p class="note">Cuánta gente vive en Ontur, desde 1900, y cuántos nacen y mueren cada año.</p></div>
+  <section class="rv">
+    <h2>Cuánta gente vive en Ontur</h2>
+    <div class="card">
+      <h3>Habitantes, 1900–2024</h3>
+      <p class="note">Censos de población hasta 1981 y padrón municipal desde 1986 (a 1 de enero). Pasa el dedo o el cursor por la línea.</p>
+      <div class="chart" id="c-pob"></div>
+    </div>
+  </section>
+
+  <section class="rv">
+    <h2>Nacen y mueren</h2>
+    <div class="card">
+      <h3>Nacimientos y defunciones cada año, 1996–2023</h3>
+      <p class="note">En Ontur muere más gente de la que nace casi todos los años: por eso baja la población aunque llegue gente de fuera.</p>
+      <div class="legend" id="lg-nat"></div>
+      <div class="chart" id="c-nat"></div>
+    </div>
+  </section>
+  </div>
+  <div class="chap" id="elecciones">
+    <div class="chap-h rv"><span class="num">2 · Las elecciones</span><h2>Cómo votamos</h2><p class="note">Quién ha ganado cada elección, cómo ha cambiado el voto y cómo queda el Ayuntamiento.</p></div>
   <section class="rv" id="explorador">
     <h2>Elige una elección</h2>
     <p class="note">Toca cualquier elección y mira cómo votó Ontur.</p>
@@ -141,15 +205,6 @@ footer a{color:var(--fg)}
       <div class="chips" id="xp-chips"></div>
       <div class="xp-top"><span class="w" id="xp-w"></span><span class="s" id="xp-s"></span></div>
       <div class="bars" id="xp-bars"></div>
-    </div>
-  </section>
-
-  <section class="rv">
-    <h2>Cuánta gente vive en Ontur</h2>
-    <div class="card">
-      <h3>Habitantes, 1900–2024</h3>
-      <p class="note">Censos de población hasta 1981 y padrón municipal desde 1986 (a 1 de enero). Pasa el dedo o el cursor por la línea.</p>
-      <div class="chart" id="c-pob"></div>
     </div>
   </section>
 
@@ -194,11 +249,83 @@ footer a{color:var(--fg)}
       <div class="tw"><table id="tabla"><thead><tr><th>Elección</th><th>PSOE</th><th>PP</th><th>Vox</th><th>Cs</th><th>Podemos, IU y Sumar</th><th>Otros</th><th>Participación</th></tr></thead><tbody></tbody></table></div>
     </div>
   </section>
+  </div>
+  <div class="chap" id="trabajo">
+    <div class="chap-h rv"><span class="num">3 · El trabajo</span><h2>De qué vive Ontur</h2><p class="note">El campo y la cooperativa, cuánta gente trabaja, el paro y lo que se gana.</p></div>
+  <section class="rv">
+    <div class="coop" id="coop">
+      <h3>La cooperativa: vino y aceite del pueblo</h3>
+      <p>La agricultura es la principal fuente de ingresos de Ontur, sobre todo la vid y el olivo, en secano. Casi todo pasa por la cooperativa: hoy se llama Ontalba y elabora vino de la Denominación de Origen Jumilla, con uva monastrell, y aceite de oliva.</p>
+      <div class="cn">
+        <div><b class="cu" data-to="950" data-pre="+">0</b><span>socios entre vino y aceite</span></div>
+        <div><b class="cu" data-to="15" data-suf=" millones">0</b><span>de kilos de uva al año, de media</span></div>
+        <div><b class="cu" data-to="3100" data-suf=" ha">0</b><span>de olivar, según la almazara</span></div>
+        <div><b class="cu" data-to="20" data-suf=" %">0</b><span>de la producción es ecológica</span></div>
+      </div>
+      <ol class="tl">
+        <li><b>1947</b><span>Nace la bodega cooperativa del Campo San José</span></li>
+        <li><b>1965</b><span>Abre la almazara (aceite «Castillo de Ontur»)</span></li>
+        <li><b>2017</b><span>San José de Ontur se une a San Isidro de Albatana: nace Ontalba</span></li>
+        <li><b>2023</b><span>Inaugura nuevas instalaciones con ayudas regionales</span></li>
+      </ol>
+      <small>Fuentes: <a href="https://ontur.es/agricultura/">Ayuntamiento de Ontur</a>; <a href="https://www.elespanol.com/eldigitalcastillalamancha/economia/el-campo/20170922/nace-ontalba-albacete-cooperativas-san-jose-isidro/248476584_0.html">El Digital Castilla-La Mancha (sept. 2017)</a>; <a href="https://revistaalimentos.es/julian-martinez-lizan-inaugura-las-nuevas-instalaciones-de-la-cooperativa-ontalba-de-ontur">Revista Alimentos (nov. 2023)</a>. Los socios y la uva son de toda la cooperativa, que incluye Albatana.</small>
+    </div>
+  </section>
+
+  <section class="rv">
+    <h2>Quién trabaja y cómo</h2>
+    <div class="grid2">
+      <div class="card">
+        <h3>Afiliados a la Seguridad Social en Ontur</h3>
+        <p class="note">Agosto de 2025, por tipo de alta. Más de 4 de cada 10 trabajan por su cuenta.</p>
+        <div class="big1" id="af-tot">0</div>
+        <div class="hbars" id="af-bars"></div>
+      </div>
+      <div class="card">
+        <h3>Paro registrado</h3>
+        <p class="note">Agosto de 2025, según el SEPE, y el mismo mes de 2024.</p>
+        <div class="big1" id="pa-tot">0</div>
+        <p class="note" id="pa-sub"></p>
+        <div class="hbars" id="pa-bars"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="rv">
+    <h2>Lo que se gana</h2>
+    <div class="card">
+      <h3>Renta media por declarante de IRPF, 2013–2019</h3>
+      <p class="note">Renta bruta y disponible (después de impuestos) por cada declaración de la renta en Ontur, en euros de cada año. Último dato publicado: 2019.</p>
+      <div class="legend" id="lg-renta"></div>
+      <div class="chart" id="c-renta"></div>
+    </div>
+  </section>
+  </div>
+  <div class="chap" id="negocios">
+    <div class="chap-h rv"><span class="num">4 · Los negocios</span><h2>Las empresas del pueblo</h2><p class="note">Qué empresas tienen su sede en Ontur y a qué se dedican.</p></div>
+  <section class="rv">
+    <div class="card">
+      <h3>Empresas con sede en Ontur, por a qué se dedican</h3>
+      <p class="note">Sociedades y entidades inscritas con domicilio en Ontur. El sector lo deducimos del nombre (no viene en la fuente): por eso hay un grupo «sin pista». Toca un sector para ver sus empresas.</p>
+      <div class="big1" id="biz-tot">0</div>
+      <div class="hbars" id="biz-bars"></div>
+    </div>
+  </section>
+
+  <section class="rv">
+    <h2>Busca un negocio</h2>
+    <div class="card">
+      <div class="dir-tools"><input id="biz-q" type="search" placeholder="Busca por nombre: bodega, construcciones, bar…" aria-label="Buscar empresa"><span class="count" id="biz-n"></span></div>
+      <div class="dir" id="biz-list"></div>
+      <p class="note" style="font-size:13px">Lista del directorio de empresas de <a href="https://www.axesor.es/directorio-informacion-empresas/empresas-de-Albacete/informacion-empresas-de-Ontur/1">Axesor</a>, que recoge las sociedades inscritas en el Registro Mercantil con domicilio en Ontur. Puede incluir empresas que ya no tienen actividad y no incluye a los autónomos que trabajan a su nombre (que son muchos: 176 afiliados como autónomos).</p>
+    </div>
+  </section>
+  </div>
 
   <footer>
     <p><b>Cómo leerlo.</b> Los porcentajes son sobre votos válidos (votos a partidos más votos en blanco). «Electores» es votantes más abstención, según el escrutinio de cada elección. «Podemos, IU y Sumar» suma las listas a la izquierda del PSOE de cada año. AOI es una candidatura local que se presentó a las municipales de 2007 a 2019.</p>
     <p><b>Calculado aquí.</b> Los concejales salen de aplicar D'Hondt a los votos publicados, porque la fuente consultada no los da para todos los años.</p>
-    <p><b>Fuentes.</b> Población: censos y padrón del INE, recopilados por <a href="https://www.foro-ciudad.com/albacete/ontur/habitantes.html">foro-ciudad.com</a>. Resultados: páginas de resultados de <a href="https://www.publico.es/resultados-elecciones/generales/2023/castilla-la-mancha/albacete/ontur">Público</a> para cada elección (escrutinio al 100 %). Electores: Oficina del Censo Electoral, recopilado por <a href="https://telencuestas.com/censos-electorales/espana/castilla-la-mancha/albacete/ontur">telencuestas.com</a>. Los datos están en la carpeta <a href="https://github.com/juanle-lopez/ontur/tree/main/datos">datos</a> del repositorio, en CSV.</p>
+    <p><b>Fuentes.</b> Población: censos y padrón del INE, recopilados por <a href="https://www.foro-ciudad.com/albacete/ontur/habitantes.html">foro-ciudad.com</a>. Resultados: páginas de resultados de <a href="https://www.publico.es/resultados-elecciones/generales/2023/castilla-la-mancha/albacete/ontur">Público</a> para cada elección (escrutinio al 100 %). Electores: Oficina del Censo Electoral, recopilado por <a href="https://telencuestas.com/censos-electorales/espana/castilla-la-mancha/albacete/ontur">telencuestas.com</a>. Economía: afiliados y paro de agosto de 2025 (Seguridad Social y SEPE), renta media del IRPF (Agencia Tributaria) y nacimientos y defunciones (INE), recopilados por <a href="https://www.foro-ciudad.com/albacete/ontur/habitantes.html">foro-ciudad.com</a>; empresas, del directorio de <a href="https://www.axesor.es/directorio-informacion-empresas/empresas-de-Albacete/informacion-empresas-de-Ontur/1">Axesor</a>; cooperativa, de las fuentes citadas en su apartado. Los datos están en la carpeta <a href="https://github.com/juanle-lopez/ontur/tree/main/datos">datos</a> del repositorio, en CSV.</p>
   </footer>
 </div>
 
@@ -275,9 +402,9 @@ function hero(P){
   const sv=d3.select('#spark');sv.selectAll('*').remove();
   const x=d3.scaleLinear([1900,2024],[0,1000]),y=d3.scaleLinear([0,d3.max(P,p=>p.hab)*1.05],[300,20]);
   const g=sv.append('defs').append('linearGradient').attr('id','hg').attr('x1',0).attr('x2',0).attr('y1',0).attr('y2',1);
-  g.append('stop').attr('offset',0).attr('style','stop-color:#cfe3a8;stop-opacity:.55');g.append('stop').attr('offset',1).attr('style','stop-color:#cfe3a8;stop-opacity:0');
+  g.append('stop').attr('offset',0).attr('style','stop-color:#f3cf72;stop-opacity:.45');g.append('stop').attr('offset',1).attr('style','stop-color:#f3cf72;stop-opacity:0');
   sv.append('path').attr('d',d3.area().x(p=>x(p.anio)).y0(300).y1(p=>y(p.hab))(P)).attr('fill','url(#hg)');
-  const ln=sv.append('path').attr('d',d3.line().x(p=>x(p.anio)).y(p=>y(p.hab))(P)).attr('fill','none').attr('stroke','#e4f0cc').attr('stroke-width',3).attr('vector-effect','non-scaling-stroke');
+  const ln=sv.append('path').attr('d',d3.line().x(p=>x(p.anio)).y(p=>y(p.hab))(P)).attr('fill','none').attr('stroke','#f7dc95').attr('stroke-width',3).attr('vector-effect','non-scaling-stroke');
   if(!REDUCE&&!sv.node().dataset.done){sv.node().dataset.done=1;const L=ln.node().getTotalLength();ln.attr('stroke-dasharray',L+' '+L).attr('stroke-dashoffset',L).transition().duration(2600).ease(d3.easeCubicOut).attr('stroke-dashoffset',0)}
 }
 function facts(P){
@@ -320,6 +447,72 @@ function explorer(){
 }
 // revelado de secciones
 document.querySelectorAll('.rv').forEach(el=>whenSeen(el,()=>el.classList.add('in'),.08));
+
+
+function hbars(el,rows,opt={}){el.textContent='';const mx=Math.max(...rows.map(r=>r.v),1);const go=[];
+  rows.forEach(r=>{const d=document.createElement(opt.btn?'button':'div');d.className='hb';if(opt.btn){d.type='button';d.setAttribute('aria-pressed',opt.sel===r.nm);d.addEventListener('click',()=>opt.btn(r.nm))}
+    const a=document.createElement('span');a.className='nm';a.textContent=r.nm;const t=document.createElement('span');t.className='tr';const f=document.createElement('span');f.className='fl';f.style.display='block';if(r.c)f.style.background=r.c;t.appendChild(f);
+    const v=document.createElement('span');v.className='v';v.textContent=opt.fmt?opt.fmt(r.v):n(r.v);d.append(a,t,v);el.appendChild(d);go.push(()=>f.style.width=(r.v/mx*100)+'%')});
+  const run=()=>requestAnimationFrame(()=>requestAnimationFrame(()=>go.forEach(g=>g())));if(el.dataset.seen==='1'||REDUCE)run();else onSeen(el,run)}
+function barChart(el,data,keys,colors){el.innerHTML='';const anim=!REDUCE&&!el.dataset.drawn;el.dataset.drawn='1';
+  const W=el.clientWidth,H=260,m={t:12,r:8,b:26,l:32};const x0=d3.scaleBand(data.map(d=>d.anio),[m.l,W-m.r]).paddingInner(.2);
+  const x1=d3.scaleBand(keys,[0,x0.bandwidth()]).padding(.08);const y=d3.scaleLinear([0,d3.max(data,d=>d3.max(keys,k=>d[k]))*1.1],[H-m.b,m.t]).nice();
+  const svg=d3.select(el).append('svg').attr('width','100%').attr('viewBox',`0 0 ${W} ${H}`);
+  svg.append('g').selectAll('line').data(y.ticks(4)).join('line').attr('x1',m.l).attr('x2',W-m.r).attr('y1',d=>y(d)).attr('y2',d=>y(d)).attr('stroke','var(--grid)');
+  svg.append('g').selectAll('text').data(y.ticks(4)).join('text').attr('x',m.l-6).attr('y',d=>y(d)+4).attr('text-anchor','end').text(d=>d);
+  const step=Math.ceil(data.length/Math.max(4,Math.floor(W/60)));
+  svg.append('g').selectAll('text').data(data.filter((d,i)=>i%step===0)).join('text').attr('x',d=>x0(d.anio)+x0.bandwidth()/2).attr('y',H-8).attr('text-anchor','middle').text(d=>d.anio);
+  const t=tipBox(el);
+  const g=svg.append('g').selectAll('g').data(data).join('g').attr('transform',d=>`translate(${x0(d.anio)},0)`);
+  const r=g.selectAll('rect').data(d=>keys.map((k,i)=>({k,v:d[k],c:colors[i],d}))).join('rect').attr('x',d=>x1(d.k)).attr('width',x1.bandwidth()).attr('rx',2).attr('fill',d=>d.c)
+    .attr('y',anim?y(0):d=>y(d.v)).attr('height',anim?0:d=>y(0)-y(d.v));
+  if(anim)r.transition().delay((d,i,nodes)=>data.indexOf(d.d)*35).duration(700).ease(d3.easeCubicOut).attr('y',d=>y(d.v)).attr('height',d=>y(0)-y(d.v));
+  g.append('rect').attr('width',x0.bandwidth()).attr('y',m.t).attr('height',H-m.t-m.b).attr('fill','transparent')
+   .on('pointermove',(ev,d)=>{t.textContent='';const h=document.createElement('div');h.className='t';h.textContent=d.anio;t.appendChild(h);
+     keys.forEach((k,i)=>{const row=document.createElement('div');row.className='r';const sw=document.createElement('i');sw.className='sw';sw.style.cssText='width:9px;height:9px;background:'+colors[i];row.append(sw,k[0].toUpperCase()+k.slice(1)+': '+d[k]);t.appendChild(row)});
+     t.hidden=false;const w=t.offsetWidth,cx=x0(d.anio)+x0.bandwidth()/2;t.style.left=Math.max(0,Math.min(W-w,cx-w/2))+'px';t.style.top='0px'})
+   .on('pointerleave',()=>t.hidden=true);
+}
+let BIZSEL=null;
+function economy(){
+  // gente: nacimientos
+  const NA=E.nacimientos.map(r=>({anio:r.anio,nacimientos:+r.nacimientos,defunciones:+r.defunciones}));
+  legend('lg-nat',[['Nacimientos',css('--c1')],['Defunciones',css('--muted-chart')]]);
+  const cn=document.getElementById('c-nat');onSeen(cn,()=>barChart(cn,NA,['nacimientos','defunciones'],[css('--c1'),css('--muted-chart')]));
+  // cooperativa
+  const co=document.getElementById('coop');if(!co.dataset.ok){co.dataset.ok=1;whenSeen(co,()=>co.querySelectorAll('.cu').forEach(b=>countUp(b,+b.dataset.to,v=>(b.dataset.pre||'')+n(Math.round(v))+(b.dataset.suf||''))),.3)}
+  // afiliados
+  const AF=E.afiliados.map(r=>({nm:r.regimen,v:+r.afiliados})).sort((a,b)=>b.v-a.v),aft=AF.reduce((a,r)=>a+r.v,0);
+  const at=document.getElementById('af-tot');if(!at.dataset.ok){at.dataset.ok=1;whenSeen(at,()=>countUp(at,aft,v=>n(Math.round(v))+' personas'),.4)}else at.textContent=n(aft)+' personas';
+  hbars(document.getElementById('af-bars'),AF.map(r=>({...r,c:css('--accent')})));
+  // paro
+  const P=E.paro.map(r=>({...r,parados:+r.parados,hace:+r.hace_un_ano})),tot=P.find(r=>r.grupo==='total'),muj=P.find(r=>r.categoria==='Mujeres');
+  const pt=document.getElementById('pa-tot');if(!pt.dataset.ok){pt.dataset.ok=1;whenSeen(pt,()=>countUp(pt,tot.parados,v=>n(Math.round(v))+' parados'),.4)}else pt.textContent=n(tot.parados)+' parados';
+  document.getElementById('pa-sub').textContent=(tot.parados-tot.hace)+' respecto a agosto de 2024 ('+n(tot.hace)+'). '+n(muj.parados)+' son mujeres. Por sector de su último empleo:';
+  hbars(document.getElementById('pa-bars'),P.filter(r=>r.grupo==='sector').map(r=>({nm:r.categoria,v:r.parados,c:css('--c2')})));
+  // renta
+  const RE=E.renta.map(r=>({x:new Date(Date.UTC(+r.anio,0,1)),a:+r.anio,b:+r.renta_bruta_media,d:+r.renta_disponible_media}));
+  const sr=[{name:'Renta bruta',color:css('--c1'),endLabel:true,pts:RE.map(r=>({x:r.x,y:r.b,label:String(r.a)}))},{name:'Renta disponible',color:css('--c2'),endLabel:true,pts:RE.map(r=>({x:r.x,y:r.d,label:String(r.a)}))}];
+  legend('lg-renta',sr.map(s=>[s.name,s.color]));const cr=document.getElementById('c-renta');
+  onSeen(cr,()=>lineChart(cr,sr,{yFmt:v=>n(v)+' €',yMin:10000,yMax:18000}));
+  // negocios
+  const B=E.empresas,cnt=d3.rollups(B,v=>v.length,d=>d.sector_segun_nombre).map(([nm,v])=>({nm,v})).sort((a,b)=>(a.nm.startsWith('Sin')?1:0)-(b.nm.startsWith('Sin')?1:0)||b.v-a.v);
+  const bt=document.getElementById('biz-tot');if(!bt.dataset.ok){bt.dataset.ok=1;whenSeen(bt,()=>countUp(bt,B.length,v=>n(Math.round(v))+' empresas'),.4)}else bt.textContent=n(B.length)+' empresas';
+  hbars(document.getElementById('biz-bars'),cnt.map(r=>({...r,c:r.nm.startsWith('Sin')?css('--muted-chart'):css('--accent')})),{sel:BIZSEL,btn:nm=>{BIZSEL=BIZSEL===nm?null:nm;economy();document.getElementById('biz-q').scrollIntoView({behavior:REDUCE?'auto':'smooth',block:'center'})}});
+  bizList();
+}
+function bizList(){const q=(document.getElementById('biz-q').value||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
+  const L=E.empresas.filter(b=>(!BIZSEL||b.sector_segun_nombre===BIZSEL)&&(!q||(b.nombre+' '+b.sector_segun_nombre).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').includes(q)));
+  const el=document.getElementById('biz-list');el.textContent='';
+  L.forEach((b,i)=>{const d=document.createElement('div');d.className='biz';d.style.animationDelay=Math.min(i,30)*18+'ms';if(b.sector_segun_nombre.startsWith('Sin'))d.style.borderLeftColor='var(--muted-chart)';
+    const nb=document.createElement('b');nb.textContent=b.nombre;const sp=document.createElement('span');sp.textContent=b.sector_segun_nombre+' · '+b.forma;d.append(nb,sp);el.appendChild(d)});
+  document.getElementById('biz-n').textContent=n(L.length)+(L.length===1?' empresa':' empresas')+(BIZSEL?' en «'+BIZSEL+'»':'');}
+document.getElementById('biz-q').addEventListener('input',()=>bizList());
+// navegación por apartados
+(function(){const links=[...document.querySelectorAll('#jump a')];if(!('IntersectionObserver' in window))return;
+  const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){links.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id))}})},{rootMargin:'-45% 0px -50% 0px'});
+  links.forEach(a=>{const t=document.querySelector(a.getAttribute('href'));if(t)io.observe(t)})})();
+let E;
 
 let D,C;
 function draw(){
@@ -369,10 +562,10 @@ function draw(){
     vals.forEach(([g,v])=>{const td=document.createElement('td');td.textContent=pf(v);if(v===mx){td.className='w';td.style.color=col(g)}tr.appendChild(td)});
     const tp=document.createElement('td');tp.textContent=pf(p.pct);tr.appendChild(tp);tb.appendChild(tr)});
 }
-Promise.all(['poblacion','votos','participacion','censo'].map(f=>d3.csv('datos/'+f+'.csv'))).then(([poblacion,votos,participacion,censo])=>{
-  votos.forEach(v=>v.votos=+v.votos);D={poblacion,votos,participacion,censo};C=compute(D);draw();
-  let w=innerWidth,t;addEventListener('resize',()=>{clearTimeout(t);t=setTimeout(()=>{if(innerWidth!==w){w=innerWidth;draw()}},200)});
-  matchMedia('(prefers-color-scheme: dark)').addEventListener('change',draw);
+Promise.all(['poblacion','votos','participacion','censo','afiliados','paro','renta','nacimientos','empresas'].map(f=>d3.csv('datos/'+f+'.csv'))).then(([poblacion,votos,participacion,censo,afiliados,paro,renta,nacimientos,empresas])=>{
+  votos.forEach(v=>v.votos=+v.votos);D={poblacion,votos,participacion,censo};E={afiliados,paro,renta,nacimientos,empresas};C=compute(D);draw();economy();
+  let w=innerWidth,t;addEventListener('resize',()=>{clearTimeout(t);t=setTimeout(()=>{if(innerWidth!==w){w=innerWidth;draw();economy()}},200)});
+  matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>{draw();economy()});
 }).catch(()=>{document.getElementById('lead').innerHTML='<span class="err">No se han podido cargar los datos. Recarga la página.</span>'});
 </script>
 </body>
