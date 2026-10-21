@@ -208,6 +208,34 @@ td.w{font-weight:800}
 .dirs span{color:var(--muted);font-size:15px}
 .quote{font-family:var(--serif);font-size:clamp(21px,3vw,27px);line-height:1.35;border-left:5px solid var(--sand);padding:4px 0 4px 16px;margin:0}
 .quote small{display:block;font-family:var(--sans);font-size:13px;color:var(--muted);margin-top:6px}
+
+/* fotos */
+.ph{margin:0;position:relative;border-radius:18px;overflow:hidden;background:var(--grid);cursor:zoom-in;min-width:0}
+.ph img{display:block;width:100%;height:100%;object-fit:cover;transform:scale(1.07);transition:transform 1.6s cubic-bezier(.2,.8,.2,1)}
+.ph.in img{transform:none}
+.ph:hover img{transform:scale(1.03)}
+.ph figcaption{position:absolute;inset:auto 0 0 0;padding:34px 14px 12px;background:linear-gradient(transparent,rgba(0,0,0,.72));color:#fff;font-size:13.5px;line-height:1.35;pointer-events:none}
+.ph.bw img{filter:grayscale(1) contrast(1.06) sepia(.12)}
+.ph.hero{aspect-ratio:16/9;max-height:440px;width:100%}
+.phrow{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,18rem),1fr));gap:12px}
+.phrow .ph{aspect-ratio:16/10}
+.hoy{display:flex;gap:12px;align-items:stretch}
+.hoy .a{flex:0 0 min(38%,290px);aspect-ratio:3/4}
+.hoy .b{flex:1}
+@media(max-width:620px){.hoy{flex-direction:column}.hoy .a{flex:none;width:100%;aspect-ratio:3/4}.hoy .b{aspect-ratio:16/9}}
+.dirs .ph{margin-top:10px;max-width:440px}
+.dirs .ph.v{max-width:300px}
+.prods{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.prod{margin:0;background:#fff;border-radius:16px;overflow:hidden;display:flex;flex-direction:column;cursor:zoom-in}
+.prod img{display:block;width:100%;height:230px;object-fit:contain;padding:10px 10px 0;background:#fff}
+.prod figcaption{padding:10px 12px 12px;background:rgba(0,0,0,.22);color:#fbeff2;font-size:13.5px;line-height:1.35;flex:1}
+.prod figcaption b{display:block;color:#fff;font-size:15px}
+.lb{position:fixed;inset:0;z-index:100;background:rgba(5,10,12,.92);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:max(16px,env(safe-area-inset-top,0px)) 16px max(16px,env(safe-area-inset-bottom,0px));animation:vin .25s ease;cursor:zoom-out}
+.lb[hidden]{display:none}
+.lb img{max-width:100%;max-height:80vh;object-fit:contain;border-radius:10px}
+.lb p{color:#e7eef0;margin:0;text-align:center;font-size:14.5px;max-width:60ch}
+.lb button{position:absolute;top:max(12px,env(safe-area-inset-top,0px));right:14px;font:inherit;font-size:28px;line-height:1;background:rgba(255,255,255,.14);color:#fff;border:0;border-radius:999px;width:44px;height:44px;cursor:pointer}
+@media(prefers-reduced-motion:reduce){.ph img{transform:none!important;transition:none}}
 /* Más: fuentes y notas */
 .src{display:flex;flex-direction:column;gap:0;margin:0;padding:0;list-style:none}
 .src li{padding:12px 0;border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:3px}
@@ -252,6 +280,7 @@ td.w{font-weight:800}
     <div class="banner rv" style="--bnbg:linear-gradient(160deg,#0c2a36,#1b6c7c)" data-ill="casas"><div class="bt"><span>1 · La gente</span><b>Cuántos somos</b></div></div>
     <div class="photos" data-sec="gente" hidden></div>
     <p class="intro rv">Cuánta gente vive en Ontur desde 1900, cuántos nacen y cuántos mueren cada año.</p>
+    <div class="phrow"><figure class="ph rv " data-zoom><img src="fotos/ontur-panoramica.jpg" alt="Vista de Ontur con la sierra al fondo" loading="lazy" decoding="async"><figcaption>Ontur, con la torre de la iglesia y la sierra al fondo</figcaption></figure><figure class="ph rv " data-zoom><img src="fotos/ontur-ciclismo.jpg" alt="Dos ciclistas con los brazos en alto cruzan la meta en Ontur" loading="lazy" decoding="async"><figcaption>Meta de una carrera ciclista en las calles engalanadas de Ontur</figcaption></figure></div>
     <div class="kpis stag" id="k-gente"></div>
     <section class="sec">
       <div class="sh rv"><h2>Cuánta gente vive en Ontur</h2><p>Habitantes a 1 de enero de cada año, de 1900 a 2024. Pasa el dedo por la línea.</p></div>
@@ -328,6 +357,10 @@ td.w{font-weight:800}
           <li><b>2017</b><span>San José de Ontur se une a San Isidro de Albatana: nace Ontalba</span></li>
           <li><b>2023</b><span>Inaugura nuevas instalaciones con ayudas regionales</span></li>
         </ol>
+        <div class="prods rv">
+          <figure class="prod" data-zoom><img src="fotos/trabajo-aceite.jpg" alt="Garrafa de aceite de oliva virgen extra Castillo de Ontur" loading="lazy"><figcaption><b>Castillo de Ontur</b>Aceite de oliva virgen extra, arbequina. Almazara San José.</figcaption></figure>
+          <figure class="prod" data-zoom><img src="fotos/trabajo-vino.jpg" alt="Botella de vino tinto Dominio de Ontur monastrell" loading="lazy"><figcaption><b>Dominio de Ontur</b>Monastrell, D.O.P. Jumilla. Bodegas Ontalba.</figcaption></figure>
+        </div>
       </div>
     </section>
     <section class="sec">
@@ -367,6 +400,7 @@ td.w{font-weight:800}
     <div class="banner rv" style="--bnbg:linear-gradient(160deg,#120b2a,#3b1d5e)" data-ill="fuegos"><div class="bt"><span>5 · Las fiestas</span><b>San José y el verano</b></div></div>
     <div class="photos" data-sec="fiestas" hidden></div>
     <p class="intro rv">Ontur tiene dos fiestas grandes: las de primavera, en honor a San José, patrón del pueblo, alrededor del 19 de marzo; y las fiestas de verano, entre finales de julio y mediados de agosto.</p>
+    <figure class="ph rv hero" data-zoom><img src="fotos/fiestas-ofrenda.jpg" alt="Mujeres con traje tradicional y ramos de flores entre la multitud en la plaza" loading="lazy" decoding="async"><figcaption>Ofrenda de flores, con los trajes tradicionales y las calles engalanadas</figcaption></figure>
     <section class="sec">
       <div class="sh rv"><h2>¿Cuánto falta para San José?</h2><p>Hasta el 19 de marzo de 2027.</p></div>
       <div class="cd stag"><div><b id="cd-d">—</b><span>días</span></div><div><b id="cd-h">—</b><span>horas</span></div><div><b id="cd-m">—</b><span>minutos</span></div><div><b id="cd-s">—</b><span>segundos</span></div></div>
@@ -405,6 +439,7 @@ td.w{font-weight:800}
     <div class="banner rv" style="--bnbg:linear-gradient(160deg,#2a1a08,#7a4f12)" data-ill="notas"><div class="bt"><span>6 · La banda</span><b>Más de 150 años de música</b></div></div>
     <div class="photos" data-sec="banda" hidden></div>
     <p class="intro rv">La Banda Municipal de Música de Ontur sitúa sus primeras notas en 1868. Acompaña a San José en procesión, despierta al pueblo con la diana del día grande y llena de pasodobles las fiestas.</p>
+    <section class="sec"><div class="sh rv"><h2>La banda hoy</h2><p>Más de 50 músicos de todas las edades.</p></div><div class="hoy"><figure class="ph rv a" data-zoom><img src="fotos/banda-escalera.jpg" alt="Banda de música posando de gala en unas escaleras" loading="lazy" decoding="async"><figcaption>La banda, de gala, en las escaleras del pueblo</figcaption></figure><figure class="ph rv b" data-zoom><img src="fotos/banda-concierto.jpg" alt="Banda de música en un concierto, con gorros navideños" loading="lazy" decoding="async"><figcaption>Concierto de Navidad</figcaption></figure></div></section>
     <section class="sec">
       <div class="sh rv"><h2>La banda en cifras</h2></div>
       <div class="facts stag" id="banda-n">
@@ -421,8 +456,8 @@ td.w{font-weight:800}
           <li><span class="y">1868</span><b>Fructuoso Esquez Ibarra (1832–1888)</b><span>Enseña música y forma la Agrupación Musical de Ontur. Llegó a construir una citarina.</span></li>
           <li><span class="y">1869</span><b>Enrique Torres Cebrián (1846–1908)</b><span>Su alumno. Con un carro y sus compañeros toca en la inauguración de la Basílica de la Purísima de Yecla. Director oficial por acuerdo del pleno en 1904.</span></li>
           <li><span class="y">Breve etapa</span><b>Segismundo Cebrián Martínez, «el Maestro Mundo»</b><span>Compone el pasodoble «Mundo».</span></li>
-          <li><span class="y">1920–1937</span><b>Robustiano Cebrián Ramírez, «el Maestro Viejo» (1859–1937)</b><span>Revive la banda tras una crisis y forma a una nueva cantera de jóvenes.</span></li>
-          <li><span class="y">Hasta 1971</span><b>Andrés Cebrián Higuera</b><span>Sobrino del Maestro Viejo. Recupera el pasodoble y la música de fiesta.</span></li>
+          <li><span class="y">1920–1937</span><b>Robustiano Cebrián Ramírez, «el Maestro Viejo» (1859–1937)</b><span>Revive la banda tras una crisis y forma a una nueva cantera de jóvenes.</span><figure class="ph rv bw" data-zoom style="aspect-ratio:1/1"><img src="fotos/banda-1920.jpg" alt="Fotografía antigua de la primera banda del Maestro Robustiano en 1920" loading="lazy" decoding="async"><figcaption>Primera banda del Maestro Robustiano, 1920</figcaption></figure></li>
+          <li><span class="y">Hasta 1971</span><b>Andrés Cebrián Higuera</b><span>Sobrino del Maestro Viejo. Recupera el pasodoble y la música de fiesta.</span><figure class="ph rv bw v" data-zoom style="aspect-ratio:2/3"><img src="fotos/banda-1948.jpg" alt="Fotografía antigua de la banda en 1948 sentada en unas escaleras" loading="lazy" decoding="async"><figcaption>La banda en 1948. Director: Andrés Cebrián Higuera</figcaption></figure></li>
           <li><span class="y">1971–1986</span><b>Benito Martínez Alcaraz (1916–1995)</b><span>Onturense, formado en la propia banda y músico de la Orquesta Azul.</span></li>
           <li><span class="y">Después</span><b>Javier Artés Beltrán, Juan Muñoz Martínez, María José García López, María Virginia Romero Gómez y Javier Artés Arlandis</b><span>Con María Virginia Romero se graba el primer disco, «Del pasodoble al concierto», y nace la Minibanda.</span></li>
           <li><span class="y">Desde 2015</span><b>Ramón Calabuig Garrigós</b><span>Profesor desde 2004 y creador del Coro Municipal de Ontur.</span></li>
@@ -454,7 +489,7 @@ td.w{font-weight:800}
         <li><b>Los votos</b><span>Resultados de Ontur en cada elección, con el escrutinio al 100 %.</span><a href="https://www.publico.es/resultados-elecciones/generales/2023/castilla-la-mancha/albacete/ontur">Público · resultados por municipio</a></li>
         <li><b>Electores</b><span>Electores a 1 de enero de cada año, de la Oficina del Censo Electoral.</span><a href="https://telencuestas.com/censos-electorales/espana/castilla-la-mancha/albacete/ontur">telencuestas.com · censo electoral de Ontur</a></li>
         <li><b>El trabajo</b><span>Afiliados a la Seguridad Social y paro del SEPE (agosto de 2025) y renta media del IRPF de la Agencia Tributaria (2013–2019).</span><a href="https://www.foro-ciudad.com/albacete/ontur/habitantes.html">foro-ciudad.com · Ontur</a></li>
-        <li><b>La cooperativa</b><span>Historia, socios, uva, aceite y olivar.</span><a href="https://ontur.es/agricultura/">Ayuntamiento de Ontur · Agricultura</a><a href="https://www.elespanol.com/eldigitalcastillalamancha/economia/el-campo/20170922/nace-ontalba-albacete-cooperativas-san-jose-isidro/248476584_0.html">El Digital Castilla-La Mancha · Nace Ontalba (2017)</a><a href="https://revistaalimentos.es/julian-martinez-lizan-inaugura-las-nuevas-instalaciones-de-la-cooperativa-ontalba-de-ontur">Revista Alimentos · Nuevas instalaciones (2023)</a></li>
+        <li><b>La cooperativa</b><span>Historia, socios, uva, aceite y olivar.</span><a href="https://ontur.es/agricultura/">Ayuntamiento de Ontur · Agricultura</a><a href="https://www.elespanol.com/eldigitalcastillalamancha/economia/el-campo/20170922/nace-ontalba-albacete-cooperativas-san-jose-isidro/248476584_0.html">El Digital Castilla-La Mancha · Nace Ontalba (2017)</a><a href="https://revistaalimentos.es/julian-martinez-lizan-inaugura-las-nuevas-instalaciones-de-la-cooperativa-ontalba-de-ontur">Revista Alimentos · Nuevas instalaciones (2023)</a><a href="https://www.abc.es/espana/castilla-la-mancha/abci-vino-albacete-elegido-entre-mejores-mundo-202109231954_noticia_amp.html">ABC · Un vino de Albacete, elegido entre los mejores del mundo (2021)</a></li>
         <li><b>Los negocios</b><span>Sociedades del Registro Mercantil con domicilio en Ontur.</span><a href="https://www.axesor.es/directorio-informacion-empresas/empresas-de-Albacete/informacion-empresas-de-Ontur/1">Axesor · empresas de Ontur</a></li>
         <li><b>Las fiestas</b><span>Programa de San José 2026 y fiestas de verano 2026.</span><a href="https://www.comarcamonastrell.com/programa-de-las-fiestas-de-ontur-2026/">Comarca Monastrell · programa 2026</a><a href="https://masquealba.com/ontur-se-prepara-para-vivir-unas-fiestas-de-verano-repletas-de-musica-tradicion-y-actividades-para-todas-las-edades/">MASQUEALBA · fiestas de verano</a><a href="https://www.eldigitaldealbacete.com/2026/08/15/15-de-agosto-media-provincia-de-albacete-esta-en-fiestas/">El Digital de Albacete · 15 de agosto</a></li>
         <li><b>La banda</b><span>Historia y directores, en el artículo de Manuel Molina, donde están también las fotos de los antiguos directores; y la asociación que lleva la escuela.</span><a href="https://revistadiapason.com/150-anos-de-la-banda-municipal-de-musica-de-ontur-1868-2018-ii-ontur-por-la-musica/">Revista Diapasón · 150 años de la Banda Municipal (2020)</a><a href="https://aamo-web-b9333.web.app/">Amigos de la Música de Ontur (AAMO)</a></li>
@@ -470,6 +505,7 @@ td.w{font-weight:800}
         <li>Los concejales los calculamos con la regla D'Hondt a partir de los votos (entran las listas con al menos el 5 % de los votos válidos).</li>
         <li>El sector de cada empresa lo deducimos de su nombre, porque no viene en la fuente; por eso hay un grupo «sin pista». La lista puede incluir empresas que ya no tienen actividad y no incluye a los autónomos que trabajan a su nombre.</li>
         <li>Afiliados y paro son solo de agosto de 2025; en la fuente, el desglose del paro por sexo y por sector no suma exactamente el total. La renta llega hasta 2019.</li>
+        <li>Las fotografías las ha aportado el autor de la página; sus derechos son de quienes las hicieron.</li>
         <li>Los socios y la uva de la cooperativa son de toda Ontalba, que incluye Albatana.</li>
       </ul></div>
     </section>
@@ -478,6 +514,7 @@ td.w{font-weight:800}
   <p class="foot">Ontur en datos · cada dato tiene su fuente en <a href="#mas" data-go="mas">Más</a></p>
 </div>
 
+<div class="lb" id="lb" hidden role="dialog" aria-label="Foto ampliada"><button type="button" aria-label="Cerrar">×</button><img alt=""><p></p></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 <script>
 /* ===================== utilidades ===================== */
@@ -749,6 +786,13 @@ function fireworks(b){const cv=document.createElement('canvas');b.insertBefore(c
   onEnter(b,()=>{size();run=true;burst();step()},()=>{run=false;cancelAnimationFrame(raf)},.1)}
 document.querySelectorAll('.banner[data-ill]').forEach(ill);
 fetch('fotos/fotos.json').then(r=>r.ok?r.json():[]).then(L=>(L||[]).forEach(p=>{const box=document.querySelector('.photos[data-sec="'+p.seccion+'"]');if(!box)return;box.hidden=false;const f=el('figure'),im=el('img');im.src='fotos/'+p.archivo;im.alt=p.pie||'';im.loading='lazy';const c=el('figcaption',null,p.pie||'');if(p.autor)c.appendChild(el('small',null,'Foto: '+p.autor));f.append(im,c);box.appendChild(f)})).catch(()=>{});
+
+/* ===================== fotos ampliadas ===================== */
+(function(){const lb=$('lb'),im=lb.querySelector('img'),cp=lb.querySelector('p');
+  const close=()=>{lb.hidden=true;document.body.style.overflow=''};
+  document.addEventListener('click',e=>{const f=e.target.closest&&e.target.closest('[data-zoom]');if(!f)return;const i=f.querySelector('img');im.src=i.currentSrc||i.src;im.alt=i.alt;cp.textContent=(f.querySelector('figcaption')||{}).textContent||'';lb.hidden=false;document.body.style.overflow='hidden'});
+  lb.addEventListener('click',close);addEventListener('keydown',e=>{if(e.key==='Escape')close()});
+})();
 
 /* ===================== vistas: siempre empieza en la portada ===================== */
 if('scrollRestoration' in history)history.scrollRestoration='manual';
