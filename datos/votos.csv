@@ -1,0 +1,81 @@
+eleccion_id,tipo,eleccion,fecha,partido,grupo,votos
+G2008,generales,2008,2008-03-09,PSOE,PSOE,904
+G2008,generales,2008,2008-03-09,PP,PP,647
+G2008,generales,2008,2008-03-09,IU,"Podemos, IU y Sumar",20
+G2008,generales,2008,2008-03-09,UPyD,Otros,12
+G2008,generales,2008,2008-03-09,PACMA,Otros,4
+G2008,generales,2008,2008-03-09,PCPE,Otros,4
+G2008,generales,2008,2008-03-09,PUM+J,Otros,3
+G2008,generales,2008,2008-03-09,PSD,Otros,3
+G2008,generales,2008,2008-03-09,PH,Otros,2
+G2011,generales,2011,2011-11-20,PP,PP,741
+G2011,generales,2011,2011-11-20,PSOE,PSOE,663
+G2011,generales,2011,2011-11-20,UP,"Podemos, IU y Sumar",37
+G2011,generales,2011,2011-11-20,UPyD,Otros,36
+G2011,generales,2011,2011-11-20,PACMA,Otros,4
+G2011,generales,2011,2011-11-20,Eb,Otros,4
+G2011,generales,2011,2011-11-20,Equo,Otros,3
+G2011,generales,2011,2011-11-20,PUM+J,Otros,3
+G2015,generales,2015,2015-12-20,PP,PP,574
+G2015,generales,2015,2015-12-20,PSOE,PSOE,529
+G2015,generales,2015,2015-12-20,Cs,Cs,101
+G2015,generales,2015,2015-12-20,Podemos,"Podemos, IU y Sumar",74
+G2015,generales,2015,2015-12-20,UP-UPeC,"Podemos, IU y Sumar",18
+G2015,generales,2015,2015-12-20,PACMA,Otros,11
+G2015,generales,2015,2015-12-20,UPyD,Otros,8
+G2015,generales,2015,2015-12-20,Vox,Vox,1
+G2015,generales,2015,2015-12-20,Recortes Cero,Otros,1
+G2016,generales,2016,2016-06-26,PP,PP,579
+G2016,generales,2016,2016-06-26,PSOE,PSOE,514
+G2016,generales,2016,2016-06-26,Cs,Cs,88
+G2016,generales,2016,2016-06-26,Unidos Podemos,"Podemos, IU y Sumar",72
+G2016,generales,2016,2016-06-26,PACMA,Otros,9
+G2016,generales,2016,2016-06-26,UPyD,Otros,3
+G2016,generales,2016,2016-06-26,FE de las JONS,Otros,2
+G2016,generales,2016,2016-06-26,Recortes Cero,Otros,1
+G2016,generales,2016,2016-06-26,PCPE,Otros,0
+G2019A,generales,Abr 2019,2019-04-28,PSOE,PSOE,552
+G2019A,generales,Abr 2019,2019-04-28,PP,PP,368
+G2019A,generales,Abr 2019,2019-04-28,Vox,Vox,168
+G2019A,generales,Abr 2019,2019-04-28,Cs,Cs,145
+G2019A,generales,Abr 2019,2019-04-28,Podemos-IU-Equo,"Podemos, IU y Sumar",59
+G2019A,generales,Abr 2019,2019-04-28,PACMA,Otros,9
+G2019A,generales,Abr 2019,2019-04-28,PUM+J,Otros,1
+G2019A,generales,Abr 2019,2019-04-28,PCTE,Otros,1
+G2019A,generales,Abr 2019,2019-04-28,Recortes Cero,Otros,1
+G2019A,generales,Abr 2019,2019-04-28,PCPE,Otros,0
+G2019N,generales,Nov 2019,2019-11-10,PSOE,PSOE,517
+G2019N,generales,Nov 2019,2019-11-10,PP,PP,338
+G2019N,generales,Nov 2019,2019-11-10,Vox,Vox,222
+G2019N,generales,Nov 2019,2019-11-10,Cs,Cs,46
+G2019N,generales,Nov 2019,2019-11-10,Podemos-IU,"Podemos, IU y Sumar",38
+G2019N,generales,Nov 2019,2019-11-10,PACMA,Otros,6
+G2019N,generales,Nov 2019,2019-11-10,PUM+J,Otros,1
+G2019N,generales,Nov 2019,2019-11-10,PCPE,Otros,0
+G2019N,generales,Nov 2019,2019-11-10,PCTE,Otros,0
+G2019N,generales,Nov 2019,2019-11-10,PDSJE,Otros,0
+G2019N,generales,Nov 2019,2019-11-10,Recortes Cero,Otros,0
+G2023,generales,2023,2023-07-23,PSOE,PSOE,484
+G2023,generales,2023,2023-07-23,PP,PP,467
+G2023,generales,2023,2023-07-23,Vox,Vox,214
+G2023,generales,2023,2023-07-23,Sumar,"Podemos, IU y Sumar",37
+G2023,generales,2023,2023-07-23,PACMA,Otros,4
+G2023,generales,2023,2023-07-23,Frente Obrero,Otros,2
+G2023,generales,2023,2023-07-23,Recortes Cero,Otros,2
+G2023,generales,2023,2023-07-23,PUM+J,Otros,0
+M2007,municipales,2007,2007-05-27,PSOE,PSOE,866
+M2007,municipales,2007,2007-05-27,AOI,AOI,513
+M2007,municipales,2007,2007-05-27,PP,PP,301
+M2007,municipales,2007,2007-05-27,IU,"Podemos, IU y Sumar",11
+M2011,municipales,2011,2011-05-22,PSOE,PSOE,882
+M2011,municipales,2011,2011-05-22,PP,PP,501
+M2011,municipales,2011,2011-05-22,AOI,AOI,238
+M2011,municipales,2011,2011-05-22,IU,"Podemos, IU y Sumar",23
+M2015,municipales,2015,2015-05-24,PSOE,PSOE,682
+M2015,municipales,2015,2015-05-24,PP,PP,597
+M2015,municipales,2015,2015-05-24,AOI,AOI,143
+M2019,municipales,2019,2019-05-26,PSOE,PSOE,729
+M2019,municipales,2019,2019-05-26,PP,PP,633
+M2019,municipales,2019,2019-05-26,AOI,AOI,65
+M2023,municipales,2023,2023-05-28,PSOE,PSOE,665
+M2023,municipales,2023,2023-05-28,PP,PP,626

@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Ontur en datos</title>
+<meta name="description" content="Población, participación y voto en Ontur (Albacete): generales de 2008 a 2023 y municipales de 2007 a 2023, con fuentes.">
+<meta property="og:title" content="Ontur en datos">
+<meta property="og:description" content="Cuánta gente vive en Ontur, quién ha ganado cada elección y cómo ha cambiado el voto, con fuentes.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://juanle-lopez.github.io/ontur/">
+<meta property="og:locale" content="es_ES">
+<meta name="color-scheme" content="light dark">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: una columna de lectura con tarjetas; dos columnas de gráficos cuando hay sitio */
+:root{
+  --bg:#f3f4ef; --panel:#ffffff; --fg:#1c221e; --muted:#5b655d; --line:#dde2d8; --accent:#5c7a3e; --grid:#e8ebe4;
+  --serif:'Fraunces',Georgia,'Times New Roman',serif; --sans:'Figtree',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --c1:#3d6b8f; --c2:#b0793a; --muted-chart:#a3aaa2;
+}
+@media (prefers-color-scheme:dark){:root{--bg:#141815;--panel:#1c211d;--fg:#e9ede7;--muted:#a3ada4;--line:#2e352f;--accent:#9cbb7c;--grid:#262c27;--c1:#7fb0d6;--c2:#d9a463;--muted-chart:#6c756d;color-scheme:dark}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.5 var(--sans);font-variant-numeric:tabular-nums;-webkit-text-size-adjust:100%}
+.wrap{max-width:1120px;margin-inline:auto;padding-block:clamp(20px,5vw,48px) 40px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:clamp(28px,4vw,44px)}
+.kick{margin:0 0 6px;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-weight:600}
+h1{font-family:var(--serif);font-weight:600;font-size:clamp(40px,8vw,72px);line-height:1;letter-spacing:-.02em;margin:0 0 14px}
+.lead{font-size:clamp(17px,2.2vw,20px);line-height:1.55;max-width:60ch;margin:0}
+.lead b{font-weight:700}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr));gap:12px}
+.k{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.k .lab{font-size:13px;color:var(--muted)}
+.k .big{font-family:var(--serif);font-size:34px;line-height:1.1;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.k .sub{font-size:13px;color:var(--muted);line-height:1.4}
+.sw{display:inline-block;width:12px;height:12px;border-radius:50%;flex:none}
+section{display:flex;flex-direction:column;gap:12px}
+h2{font-family:var(--serif);font-weight:600;font-size:clamp(24px,3.4vw,30px);margin:0;letter-spacing:-.01em;text-wrap:balance}
+p.note{margin:0;color:var(--muted);max-width:70ch}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,22rem),1fr));gap:14px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.card h3{margin:0;font-size:17px;font-weight:600}
+.card .note{font-size:13.5px;line-height:1.45}
+.chart{position:relative;min-height:260px}
+.chart.tall{min-height:300px}
+.chart svg{display:block;overflow:visible}
+.chart text{font-family:var(--sans);font-size:12px;fill:var(--muted)}
+.tip{position:absolute;pointer-events:none;background:var(--panel);border:1px solid var(--line);border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.14);padding:6px 10px;font-size:13px;white-space:nowrap;z-index:3}
+.tip .t{color:var(--muted);margin-bottom:2px}
+.tip .r{display:flex;align-items:center;gap:6px}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.wins{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,9rem),1fr));gap:10px}
+.win{border:1px solid var(--line);border-top:5px solid var(--line);border-radius:12px;padding:10px 12px;background:var(--panel);display:flex;flex-direction:column;gap:3px}
+.win .y{font-size:13px;color:var(--muted)}
+.win .p{font-weight:700;font-size:20px}
+.win .m{font-size:13px;color:var(--muted)}
+.seats{display:flex;flex-direction:column;gap:12px}
+.seatrow{display:grid;grid-template-columns:3rem 1fr;align-items:center;gap:10px}
+.seatrow .y{font-size:13px;color:var(--muted)}
+.dots{display:flex;flex-wrap:wrap;gap:5px;align-items:center}
+.dots i{width:20px;height:20px;border-radius:50%;display:inline-block}
+.dots small{margin-left:8px;font-size:13px;color:var(--muted)}
+.tw{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:15px}
+th,td{padding:8px 10px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap}
+th{font-size:13px;color:var(--muted);font-weight:500}
+th:first-child,td:first-child{text-align:left}
+td.w{font-weight:700}
+footer{font-size:13.5px;color:var(--muted);line-height:1.6;max-width:80ch;border-top:1px solid var(--line);padding-top:16px}
+footer p{margin:0 0 8px}
+footer a{color:var(--fg)}
+.err{color:var(--muted)}
+/* hero */
+.hero{position:relative;border-radius:22px;overflow:hidden;background:linear-gradient(160deg,#20301f 0%,#2f4a2a 55%,#4d6a35 100%);color:#f2f5ee;padding:clamp(22px,5vw,48px);display:grid;gap:18px}
+.hero .kick{color:#cfe3a8}
+.hero h1{color:#fff}
+.hero .lead{color:#dfe8d6}
+.hero .lead b{color:#fff}
+.hero-num{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.hero-num .n{font-family:var(--serif);font-size:clamp(64px,14vw,132px);line-height:.9;font-weight:600;letter-spacing:-.03em;color:#fff}
+.hero-num .u{font-size:clamp(18px,2.6vw,24px);color:#cfe3a8}
+.hero svg.spark{position:absolute;inset:auto 0 0 0;width:100%;height:42%;opacity:.38;pointer-events:none}
+.hero>*:not(svg){position:relative}
+.scrollhint{font-size:13px;color:#cfe3a8;display:flex;align-items:center;gap:8px}
+.scrollhint i{display:inline-block;width:8px;height:8px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg);animation:bob 1.6s infinite}
+@keyframes bob{50%{transform:translateY(4px) rotate(45deg)}}
+/* revelado */
+.rv{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.8,.2,1)}
+.rv.in{opacity:1;transform:none}
+.win{opacity:0;transform:translateY(14px) scale(.96);transition:opacity .5s,transform .5s cubic-bezier(.2,.8,.2,1)}
+.wins.in .win{opacity:1;transform:none}
+.dots i{transform:scale(0);transition:transform .35s cubic-bezier(.3,1.6,.5,1)}
+.seats.in .dots i{transform:scale(1)}
+/* explorador */
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips button{font:inherit;font-size:14px;border:1px solid var(--line);background:var(--panel);color:var(--fg);border-radius:999px;padding:7px 13px;cursor:pointer;min-height:38px}
+.chips button[aria-pressed=true]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.chips .grp{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);align-self:center;margin:0 4px 0 2px}
+.xp-top{display:flex;flex-wrap:wrap;gap:8px 24px;align-items:baseline}
+.xp-top .w{font-family:var(--serif);font-size:clamp(26px,4vw,36px);font-weight:600}
+.xp-top .s{color:var(--muted);font-size:14px}
+.bars{display:flex;flex-direction:column;gap:9px}
+.bar{display:grid;grid-template-columns:minmax(7rem,11rem) 1fr 5.5rem;gap:10px;align-items:center}
+.bar .nm{font-weight:600;font-size:15px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bar .tr{height:22px;background:var(--grid);border-radius:999px;overflow:hidden}
+.bar .fl{height:100%;width:0;border-radius:999px;transition:width .9s cubic-bezier(.2,.8,.2,1)}
+.bar .v{text-align:right;font-size:14px}
+.bar .v small{display:block;color:var(--muted);font-size:12px}
+@media(max-width:520px){.bar{grid-template-columns:6.2rem 1fr 4.6rem}}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,15rem),1fr));gap:12px}
+.fact{background:var(--panel);border:1px solid var(--line);border-left:5px solid var(--accent);border-radius:14px;padding:14px 16px}
+.fact b{display:block;font-family:var(--serif);font-size:30px;line-height:1.1;margin-bottom:4px}
+.fact span{color:var(--muted);font-size:14.5px}
+@media (prefers-reduced-motion:reduce){.rv,.win,.dots i{opacity:1!important;transform:none!important;transition:none!important}.bar .fl{transition:none}.scrollhint i{animation:none}}
+
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <svg class="spark" id="spark" viewBox="0 0 1000 300" preserveAspectRatio="none" aria-hidden="true"></svg>
+    <p class="kick">Ontur · Albacete · Castilla-La Mancha</p>
+    <h1>Ontur en datos</h1>
+    <div class="hero-num"><span class="n" id="hero-n" data-to="0">0</span><span class="u">vecinos y vecinas en 2024</span></div>
+    <p class="lead" id="lead">Cargando datos…</p>
+    <p class="scrollhint"><i></i> Baja para ver cómo ha cambiado el pueblo</p>
+  </header>
+
+  <div class="kpis rv" id="kpis"></div>
+
+  <section class="rv">
+    <h2>¿Sabías que…?</h2>
+    <div class="facts" id="facts"></div>
+  </section>
+
+  <section class="rv" id="explorador">
+    <h2>Elige una elección</h2>
+    <p class="note">Toca cualquier elección y mira cómo votó Ontur.</p>
+    <div class="card">
+      <div class="chips" id="xp-chips"></div>
+      <div class="xp-top"><span class="w" id="xp-w"></span><span class="s" id="xp-s"></span></div>
+      <div class="bars" id="xp-bars"></div>
+    </div>
+  </section>
+
+  <section class="rv">
+    <h2>Cuánta gente vive en Ontur</h2>
+    <div class="card">
+      <h3>Habitantes, 1900–2024</h3>
+      <p class="note">Censos de población hasta 1981 y padrón municipal desde 1986 (a 1 de enero). Pasa el dedo o el cursor por la línea.</p>
+      <div class="chart" id="c-pob"></div>
+    </div>
+  </section>
+
+  <section class="rv">
+    <h2>Quién ha ganado en Ontur</h2>
+    <p class="note">Partido más votado en el pueblo en cada elección al Congreso, y por cuántos votos sobre el segundo.</p>
+    <div class="wins" id="wins"></div>
+  </section>
+
+  <section class="rv">
+    <h2>Cómo ha cambiado el voto</h2>
+    <div class="grid2">
+      <div class="card">
+        <h3>Voto en las generales, % de votos válidos</h3>
+        <p class="note">Cada punto es una elección al Congreso, de 2008 a 2023.</p>
+        <div class="legend" id="lg-voto"></div>
+        <div class="chart tall" id="c-voto"></div>
+      </div>
+      <div class="card">
+        <h3>Cuántos van a votar</h3>
+        <p class="note">Participación sobre los electores del escrutinio, en generales y en municipales.</p>
+        <div class="legend" id="lg-part"></div>
+        <div class="chart tall" id="c-part"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="rv">
+    <h2>El Ayuntamiento</h2>
+    <div class="card">
+      <h3>Concejales tras cada elección municipal</h3>
+      <p class="note">Un círculo por concejal. Se reparten con la regla D'Hondt entre las listas con al menos el 5 % de los votos válidos. Con menos de 2.001 habitantes el pleno pasa de 11 a 9 concejales, como en 2023.</p>
+      <div class="legend" id="lg-seats"></div>
+      <div class="seats" id="seats"></div>
+    </div>
+  </section>
+
+  <section class="rv">
+    <h2>Todas las generales, en una tabla</h2>
+    <div class="card">
+      <h3>% de votos válidos por partido</h3>
+      <div class="tw"><table id="tabla"><thead><tr><th>Elección</th><th>PSOE</th><th>PP</th><th>Vox</th><th>Cs</th><th>Podemos, IU y Sumar</th><th>Otros</th><th>Participación</th></tr></thead><tbody></tbody></table></div>
+    </div>
+  </section>
+
+  <footer>
+    <p><b>Cómo leerlo.</b> Los porcentajes son sobre votos válidos (votos a partidos más votos en blanco). «Electores» es votantes más abstención, según el escrutinio de cada elección. «Podemos, IU y Sumar» suma las listas a la izquierda del PSOE de cada año. AOI es una candidatura local que se presentó a las municipales de 2007 a 2019.</p>
+    <p><b>Calculado aquí.</b> Los concejales salen de aplicar D'Hondt a los votos publicados, porque la fuente consultada no los da para todos los años.</p>
+    <p><b>Fuentes.</b> Población: censos y padrón del INE, recopilados por <a href="https://www.foro-ciudad.com/albacete/ontur/habitantes.html">foro-ciudad.com</a>. Resultados: páginas de resultados de <a href="https://www.publico.es/resultados-elecciones/generales/2023/castilla-la-mancha/albacete/ontur">Público</a> para cada elección (escrutinio al 100 %). Electores: Oficina del Censo Electoral, recopilado por <a href="https://telencuestas.com/censos-electorales/espana/castilla-la-mancha/albacete/ontur">telencuestas.com</a>. Los datos están en la carpeta <a href="https://github.com/juanle-lopez/ontur/tree/main/datos">datos</a> del repositorio, en CSV.</p>
+  </footer>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script>
+const PC={'PSOE':'#d8343c','PP':'#2a6fbd','Vox':'#5aa02c','Cs':'#ec7b2c','Podemos, IU y Sumar':'#8a46a8','AOI':'#c99a16','IU':'#9b4fb5'};
+const col=p=>PC[p]||'var(--muted-chart)';
+const nf=new Intl.NumberFormat('es-ES',{useGrouping:'always'}),n=v=>nf.format(v),pf=v=>v==null?'—':String(v).replace('.',',')+' %';
+const parseD=s=>new Date(s+'T00:00:00Z');
+const REDUCE=matchMedia('(prefers-reduced-motion: reduce)').matches;
+function countUp(el,to,fmt,dur=1600){if(REDUCE){el.textContent=fmt(to);return}const t0=performance.now();(function f(now){const k=Math.min(1,(now-t0)/dur),e=1-Math.pow(1-k,3);el.textContent=fmt(to*e);if(k<1)requestAnimationFrame(f)})(t0)}
+const seen=new WeakSet();function whenSeen(el,fn,th=.25){if(!('IntersectionObserver' in window)||REDUCE){fn();return}const io=new IntersectionObserver(es=>{if(es.some(e=>e.isIntersecting)){io.disconnect();fn()}},{threshold:th});io.observe(el)}
+const css=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+
+function compute(D){
+  const val={};D.participacion.forEach(p=>val[p.eleccion_id]=+p.votantes-+p.nulos);
+  const acc={};D.votos.forEach(v=>{const k=v.eleccion_id+'|'+v.grupo;acc[k]=acc[k]||{eleccion_id:v.eleccion_id,tipo:v.tipo,eleccion:v.eleccion,fecha:v.fecha,grupo:v.grupo,votos:0};acc[k].votos+=+v.votos});
+  const shares=Object.values(acc).map(r=>({...r,pct:Math.round(r.votos/val[r.eleccion_id]*1000)/10}));
+  const particip=D.participacion.map(p=>{const v=+p.votantes,e=v+ +p.abstencion;return {...p,votantes:v,electores:e,pct:Math.round(v/e*1000)/10,cej:p.concejales_en_juego?+p.concejales_en_juego:null}});
+  const by={};D.votos.forEach(v=>(by[v.eleccion_id]=by[v.eleccion_id]||[]).push(v));
+  const ganadores=Object.values(by).map(l=>{const s=l.slice().sort((a,b)=>b.votos-a.votos);return {eleccion_id:s[0].eleccion_id,tipo:s[0].tipo,eleccion:s[0].eleccion,fecha:s[0].fecha,ganador:s[0].partido,segundo:s[1].partido,margen:s[0].votos-s[1].votos}});
+  const concejales=[];particip.filter(p=>p.tipo==='municipales').forEach(p=>{const vl=p.votantes- +p.nulos,N=p.cej;
+    const l=D.votos.filter(v=>v.eleccion_id===p.eleccion_id&&+v.votos>=0.05*vl),q=[];
+    l.forEach(v=>{for(let d=1;d<=N;d++)q.push({p:v.partido,q:v.votos/d})});q.sort((a,b)=>b.q-a.q);
+    const c={};q.slice(0,N).forEach(x=>c[x.p]=(c[x.p]||0)+1);
+    Object.entries(c).forEach(([pa,k])=>concejales.push({eleccion_id:p.eleccion_id,eleccion:p.eleccion,partido:pa,concejales:k}))});
+  return {shares,particip,ganadores,concejales};
+}
+
+function tipBox(el){let t=el.querySelector('.tip');if(!t){t=document.createElement('div');t.className='tip';t.hidden=true;el.appendChild(t)}return t}
+function lineChart(el,series,{yFmt,yMin=0,yMax,ticks}){const anim=!REDUCE&&!el.dataset.drawn;el.dataset.drawn='1';
+  el.innerHTML='';const W=el.clientWidth,H=el.classList.contains('tall')?300:260,m={t:14,r:16,b:28,l:44};
+  const all=series.flatMap(s=>s.pts);if(!all.length)return;
+  const x=d3.scaleUtc(d3.extent(all,p=>p.x),[m.l,W-m.r]);const y=d3.scaleLinear([yMin,yMax??d3.max(all,p=>p.y)*1.1],[H-m.b,m.t]).nice();
+  const svg=d3.select(el).append('svg').attr('width','100%').attr('viewBox',`0 0 ${W} ${H}`);
+  const yt=y.ticks(5);
+  svg.append('g').selectAll('line').data(yt).join('line').attr('x1',m.l).attr('x2',W-m.r).attr('y1',d=>y(d)).attr('y2',d=>y(d)).attr('stroke','var(--grid)');
+  svg.append('g').selectAll('text').data(yt).join('text').attr('x',m.l-6).attr('y',d=>y(d)+4).attr('text-anchor','end').text(yFmt);
+  const xt=ticks||x.ticks(Math.max(3,Math.floor(W/90)));
+  const xl=svg.append('g').selectAll('text').data(xt).join('text').attr('x',d=>x(d.x||d)).attr('y',H-8).attr('text-anchor','middle').text(d=>d.label||d3.utcFormat('%Y')(d));
+  let last=-1e9;xl.each(function(){const b=this.getBBox();if(b.x<last+6)this.remove();else last=b.x+b.width});
+  series.forEach((s,i)=>{
+    if(s.area){const gid='g'+el.id+i,g=svg.append('defs').append('linearGradient').attr('id',gid).attr('x1',0).attr('x2',0).attr('y1',0).attr('y2',1);
+      [[0,.28],[.25,.17],[.5,.09],[.75,.03],[1,0]].forEach(([o,a])=>g.append('stop').attr('offset',o).attr('style',`stop-color:${s.color};stop-opacity:${a}`));
+      const ar=svg.append('path').attr('d',d3.area().x(p=>x(p.x)).y0(y(yMin)).y1(p=>y(p.y))(s.pts)).attr('fill',`url(#${gid})`);
+      if(anim)ar.attr('opacity',0).transition().delay(900).duration(900).attr('opacity',1)}
+    const pa=svg.append('path').attr('d',d3.line().x(p=>x(p.x)).y(p=>y(p.y))(s.pts)).attr('fill','none').attr('stroke',s.color).attr('stroke-width',2.6).attr('stroke-linecap','round').attr('stroke-linejoin','round');
+    if(anim){const L=pa.node().getTotalLength();pa.attr('stroke-dasharray',L+' '+L).attr('stroke-dashoffset',L).transition().delay(i*180).duration(1600).ease(d3.easeCubicOut).attr('stroke-dashoffset',0).on('end',()=>pa.attr('stroke-dasharray',null))}
+    if(s.dots!==false){const c=svg.append('g').selectAll('circle').data(s.pts).join('circle').attr('cx',p=>x(p.x)).attr('cy',p=>y(p.y)).attr('fill',s.color).attr('r',anim?0:3.4);
+      if(anim)c.transition().delay((p,j)=>i*180+300+j*170).duration(400).attr('r',3.4)}
+    if(s.endLabel){const lp=s.pts[s.pts.length-1];const tl=svg.append('text').attr('x',x(lp.x)+6).attr('y',y(lp.y)+4).attr('style','font-weight:700;fill:'+s.color).text(yFmt(lp.y));if(anim)tl.attr('opacity',0).transition().delay(1500).duration(500).attr('opacity',1)}
+  });
+  const t=tipBox(el),xs=[...new Set(all.map(p=>+p.x))].sort((a,b)=>a-b),dot=svg.append('g');
+  const rule=svg.append('line').attr('y1',m.t).attr('y2',H-m.b).attr('stroke','var(--muted)').attr('stroke-dasharray','3 3').attr('opacity',0);
+  svg.append('rect').attr('x',m.l).attr('y',m.t).attr('width',W-m.l-m.r).attr('height',H-m.t-m.b).attr('fill','transparent')
+   .on('pointermove',ev=>{const [mx]=d3.pointer(ev),xv=+x.invert(mx),near=xs.reduce((a,b)=>Math.abs(b-xv)<Math.abs(a-xv)?b:a);
+     rule.attr('x1',x(near)).attr('x2',x(near)).attr('opacity',.6);
+     const hits=series.map(s=>({s,p:s.pts.find(p=>+p.x===near)})).filter(h=>h.p);
+     dot.selectAll('circle').data(hits).join('circle').attr('cx',h=>x(h.p.x)).attr('cy',h=>y(h.p.y)).attr('r',5.5).attr('fill',h=>h.s.color).attr('stroke','var(--panel)').attr('stroke-width',2);
+     t.textContent='';const hd=document.createElement('div');hd.className='t';hd.textContent=hits[0].p.label;t.appendChild(hd);
+     hits.sort((a,b)=>b.p.y-a.p.y).forEach(h=>{const r=document.createElement('div');r.className='r';if(series.length>1){const sw=document.createElement('i');sw.className='sw';sw.style.cssText='width:9px;height:9px;background:'+h.s.color;r.appendChild(sw)}
+       const tx=document.createElement('span');tx.textContent=(series.length>1?h.s.name+': ':'')+yFmt(h.p.y)+(h.p.extra||'');r.appendChild(tx);t.appendChild(r)});
+     t.hidden=false;const w=t.offsetWidth;t.style.left=Math.max(0,Math.min(W-w,x(near)-w/2))+'px';t.style.top=Math.max(0,Math.min(...hits.map(h=>y(h.p.y)))-t.offsetHeight-12)+'px'})
+   .on('pointerleave',()=>{t.hidden=true;rule.attr('opacity',0);dot.selectAll('circle').remove()});
+}
+function legend(id,items){const el=document.getElementById(id);el.textContent='';items.forEach(([nm,c])=>{const s=document.createElement('span'),i=document.createElement('i');i.className='sw';i.style.cssText='width:10px;height:10px;background:'+c;s.append(i,nm);el.appendChild(s)})}
+function kpi(lab,big,sub,sw,num,fmt){const d=document.createElement('div');d.className='k';const a=document.createElement('span');a.className='lab';a.textContent=lab;const b=document.createElement('span');b.className='big';if(sw){const i=document.createElement('i');i.className='sw';i.style.background=sw;b.appendChild(i)}if(num!=null){const sp=document.createElement('span');sp.textContent=fmt(0);sp.dataset.cu='1';sp._to=num;sp._fmt=fmt;b.appendChild(sp)}else b.append(big);const c=document.createElement('span');c.className='sub';c.textContent=sub;d.append(a,b,c);return d}
+
+
+function onSeen(el,fn){if(el.dataset.seen==='1'){fn();return}whenSeen(el,()=>{el.dataset.seen='1';fn()},.2)}
+function hero(P){
+  const hn=document.getElementById('hero-n'),to=P.find(p=>p.anio===2024).hab;
+  if(!hn.dataset.done){hn.dataset.done=1;countUp(hn,to,v=>n(Math.round(v)),2200)}
+  const sv=d3.select('#spark');sv.selectAll('*').remove();
+  const x=d3.scaleLinear([1900,2024],[0,1000]),y=d3.scaleLinear([0,d3.max(P,p=>p.hab)*1.05],[300,20]);
+  const g=sv.append('defs').append('linearGradient').attr('id','hg').attr('x1',0).attr('x2',0).attr('y1',0).attr('y2',1);
+  g.append('stop').attr('offset',0).attr('style','stop-color:#cfe3a8;stop-opacity:.55');g.append('stop').attr('offset',1).attr('style','stop-color:#cfe3a8;stop-opacity:0');
+  sv.append('path').attr('d',d3.area().x(p=>x(p.anio)).y0(300).y1(p=>y(p.hab))(P)).attr('fill','url(#hg)');
+  const ln=sv.append('path').attr('d',d3.line().x(p=>x(p.anio)).y(p=>y(p.hab))(P)).attr('fill','none').attr('stroke','#e4f0cc').attr('stroke-width',3).attr('vector-effect','non-scaling-stroke');
+  if(!REDUCE&&!sv.node().dataset.done){sv.node().dataset.done=1;const L=ln.node().getTotalLength();ln.attr('stroke-dasharray',L+' '+L).attr('stroke-dashoffset',L).transition().duration(2600).ease(d3.easeCubicOut).attr('stroke-dashoffset',0)}
+}
+function facts(P){
+  const F=document.getElementById('facts');if(F.dataset.ok)return;F.dataset.ok=1;
+  const pop=y=>P.find(p=>p.anio===y).hab,g23=C.ganadores.find(r=>r.eleccion_id==='G2023');
+  const vox=y=>{const r=D.votos.find(v=>v.eleccion_id===y&&v.partido==='Vox');return r?r.votos:0};
+  const mun=C.ganadores.filter(r=>r.tipo==='municipales'),psoeM=mun.filter(r=>r.ganador==='PSOE').length;
+  const best=C.particip.slice().sort((a,b)=>b.pct-a.pct)[0];
+  const L=[
+    [Math.round(pop(2024)/pop(1910)*100),v=>n(Math.round(v))+' %','Ontur tiene hoy el '+Math.round(pop(2024)/pop(1910)*100)+' % de los habitantes que tenía en 1910 ('+n(pop(1910))+').'],
+    [g23.margen,v=>n(Math.round(v))+' votos','fue la ventaja del '+g23.ganador+' sobre el '+g23.segundo+' en las generales de julio de 2023.'],
+    [vox('G2019N'),v=>n(Math.round(v))+' votos','sacó Vox en noviembre de 2019. En 2015 había sacado '+n(vox('G2015'))+'.'],
+    [psoeM,v=>Math.round(v)+' de '+mun.length,'elecciones municipales desde 2007 ha sido el PSOE el partido más votado.'],
+    [best.pct,v=>pf(Math.round(v*10)/10),'votó en las municipales de '+best.eleccion+': la participación más alta de todas estas elecciones.']];
+  L.forEach(([to,fmt,txt])=>{const d=document.createElement('div');d.className='fact';const b=document.createElement('b');b.textContent=fmt(0);const sp=document.createElement('span');sp.textContent=txt;d.append(b,sp);F.appendChild(d);whenSeen(d,()=>countUp(b,to,fmt,1400),.4)});
+}
+let XP='G2023';
+function explorer(){
+  const ch=document.getElementById('xp-chips');
+  if(!ch.dataset.ok){ch.dataset.ok=1;const els=C.particip.slice().sort((a,b)=>a.tipo.localeCompare(b.tipo)||a.fecha.localeCompare(b.fecha));
+    let lastT='';els.forEach(p=>{if(p.tipo!==lastT){lastT=p.tipo;const g=document.createElement('span');g.className='grp';g.textContent=p.tipo==='generales'?'Generales':'Municipales';ch.appendChild(g)}
+      const b=document.createElement('button');b.type='button';b.dataset.id=p.eleccion_id;b.textContent=p.eleccion.replace('Abr','abr.').replace('Nov','nov.');ch.appendChild(b)});
+    ch.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;XP=b.dataset.id;explorer()});
+    const box=document.getElementById('xp-bars');whenSeen(box,()=>{box.dataset.vis=1;explorer()},.3);}
+  ch.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.id===XP));
+  const p=C.particip.find(r=>r.eleccion_id===XP),vl=p.votantes-(+p.nulos),g=C.ganadores.find(r=>r.eleccion_id===XP);
+  let rows=D.votos.filter(v=>v.eleccion_id===XP&&v.votos>0).sort((a,b)=>b.votos-a.votos).map(v=>({nm:v.partido,v:v.votos,c:col(v.grupo==='Otros'?'':v.grupo==='Podemos, IU y Sumar'?v.grupo:v.partido)}));
+  if(rows.length>6){const rest=rows.slice(5);rows=rows.slice(0,5);rows.push({nm:'Otros ('+rest.length+')',v:rest.reduce((a,r)=>a+r.v,0),c:'var(--muted-chart)'})}
+  rows.push({nm:'En blanco',v:+p.blancos,c:'var(--muted-chart)'});
+  const mx=Math.max(...rows.map(r=>r.v));
+  document.getElementById('xp-w').textContent='Ganó '+g.ganador+' (+'+n(g.margen)+')';
+  document.getElementById('xp-w').style.color=col(g.ganador);
+  document.getElementById('xp-s').textContent=(p.tipo==='generales'?'Generales ':'Municipales ')+p.eleccion.replace('Abr','abril').replace('Nov','noviembre')+' · votó el '+pf(p.pct)+' ('+n(p.votantes)+' de '+n(p.electores)+')';
+  const box=document.getElementById('xp-bars');const old={};box.querySelectorAll('.bar').forEach(b=>old[b.dataset.k]=b.querySelector('.fl').style.width);box.textContent='';
+  rows.forEach(r=>{const d=document.createElement('div');d.className='bar';d.dataset.k=r.nm;
+    const a=document.createElement('span');a.className='nm';a.textContent=r.nm;const t=document.createElement('div');t.className='tr';const f=document.createElement('div');f.className='fl';f.style.background=r.c;f.style.width=old[r.nm]||'0%';t.appendChild(f);
+    const v=document.createElement('span');v.className='v';v.textContent=pf(Math.round(r.v/vl*1000)/10);const sm=document.createElement('small');sm.textContent=n(r.v)+' votos';v.appendChild(sm);
+    d.append(a,t,v);box.appendChild(d);
+    if(box.dataset.vis||REDUCE)requestAnimationFrame(()=>requestAnimationFrame(()=>{f.style.width=(r.v/mx*100)+'%'}))});
+}
+// revelado de secciones
+document.querySelectorAll('.rv').forEach(el=>whenSeen(el,()=>el.classList.add('in'),.08));
+
+let D,C;
+function draw(){
+  const P=D.poblacion.map(r=>({anio:+r.anio,hab:+r.habitantes,fuente:r.fuente})),pop=y=>P.find(p=>p.anio===y).hab;
+  const g23=C.ganadores.find(r=>r.eleccion_id==='G2023'),p23=C.particip.find(r=>r.eleccion_id==='G2023'),gen=C.ganadores.filter(r=>r.tipo==='generales');
+  const cen=D.censo.find(r=>r.anio==='2026'),m23=C.concejales.filter(r=>r.eleccion_id==='M2023').sort((a,b)=>b.concejales-a.concejales),pm23=C.particip.find(r=>r.eleccion_id==='M2023');
+  const lead=document.getElementById('lead');lead.textContent='';
+  const B=t=>{const b=document.createElement('b');b.textContent=t;return b};
+  lead.append('Ontur tiene ',B(n(pop(2024))),' habitantes, ',B(n(pop(2001)-pop(2024))),' menos que en 2001. En las generales ha ganado el PSOE en ',B(String(gen.filter(r=>r.ganador==='PSOE').length)),' de ',B(String(gen.length)),' elecciones desde 2008, y en julio de 2023 por solo ',B(n(g23.margen)),' votos sobre el PP.');
+  const K=document.getElementById('kpis');K.textContent='';
+  K.append(
+    kpi('Habitantes (padrón 2024)',null,'Eran '+n(pop(1910))+' en 1910, el máximo registrado',null,pop(2024),v=>n(Math.round(v))),
+    kpi('Electores (censo de enero de 2026)',null,n(+cen.residentes_en_ontur)+' viven en Ontur y '+n(+cen.residentes_en_el_extranjero)+' en el extranjero',null,+cen.electores,v=>n(Math.round(v))),
+    kpi('Votó en las generales de 2023',null,n(p23.votantes)+' de '+n(p23.electores)+' electores',null,p23.pct,v=>pf(Math.round(v*10)/10)),
+    kpi('Ganó las generales de 2023',g23.ganador,'por '+n(g23.margen)+' votos sobre el '+g23.segundo,col(g23.ganador)),
+    kpi('Ayuntamiento (municipales 2023)',m23.map(r=>r.partido+' '+r.concejales).join(' · '),'concejales, de '+pm23.cej+' en juego'));
+  if(!K.dataset.ok){K.dataset.ok=1;whenSeen(K,()=>K.querySelectorAll('[data-cu]').forEach(e=>countUp(e,e._to,e._fmt)))}else K.querySelectorAll('[data-cu]').forEach(e=>e.textContent=e._fmt(e._to));
+  hero(P);facts(P);explorer();
+  const cpob=document.getElementById('c-pob');onSeen(cpob,()=>lineChart(cpob,[{name:'Habitantes',color:css('--c1'),area:true,dots:false,endLabel:true,pts:P.map(r=>({x:new Date(Date.UTC(r.anio,0,1)),y:r.hab,label:r.anio+(r.fuente==='censo'?' · censo':' · padrón')}))}],{yFmt:n,yMin:0}));
+  const W=document.getElementById('wins');W.textContent='';
+  gen.slice().sort((a,b)=>a.fecha.localeCompare(b.fecha)).forEach(r=>{const d=document.createElement('div');d.className='win';d.style.borderTopColor=col(r.ganador);
+    const y=document.createElement('span');y.className='y';y.textContent='Generales '+r.eleccion.replace('Abr','abril').replace('Nov','noviembre');
+    const p=document.createElement('span');p.className='p';p.textContent=r.ganador;p.style.color=col(r.ganador);
+    const m=document.createElement('span');m.className='m';m.textContent='+'+n(r.margen)+' votos sobre el '+r.segundo;d.style.transitionDelay=(W.children.length*90)+'ms';d.append(y,p,m);W.appendChild(d)});
+  onSeen(W,()=>W.classList.add('in'));
+  const GR=['PSOE','PP','Vox','Cs','Podemos, IU y Sumar'],gs=C.shares.filter(r=>r.tipo==='generales');
+  const labs=[...new Map(gs.map(r=>[r.fecha,r.eleccion])).entries()].sort();
+  const sv=GR.map(g=>({name:g,color:col(g),pts:gs.filter(r=>r.grupo===g).sort((a,b)=>a.fecha.localeCompare(b.fecha)).map(r=>({x:parseD(r.fecha),y:r.pct,label:'Generales '+r.eleccion,extra:' · '+n(r.votos)+' votos'}))})).filter(s=>s.pts.length);
+  legend('lg-voto',sv.map(s=>[s.name,s.color]));
+  const cv=document.getElementById('c-voto');onSeen(cv,()=>lineChart(cv,sv,{yFmt:v=>v+' %',yMin:0,yMax:60,ticks:labs.map(([f,l])=>({x:parseD(f),label:l.replace('Abr ','abr. ').replace('Nov ','nov. ')}))}));
+  const mk=(t,c,nm)=>({name:nm,color:c,pts:C.particip.filter(r=>r.tipo===t).sort((a,b)=>a.fecha.localeCompare(b.fecha)).map(r=>({x:parseD(r.fecha),y:r.pct,label:nm+' '+r.eleccion,extra:' · '+n(r.votantes)+' de '+n(r.electores)}))});
+  const sp=[mk('municipales',css('--c2'),'Municipales'),mk('generales',css('--c1'),'Generales')];
+  legend('lg-part',sp.map(s=>[s.name,s.color]));
+  const cpa=document.getElementById('c-part');onSeen(cpa,()=>lineChart(cpa,sp,{yFmt:v=>v+' %',yMin:60,yMax:100}));
+  const S=document.getElementById('seats');S.textContent='';const parties=new Set();
+  [...new Set(C.concejales.map(r=>r.eleccion_id))].sort().forEach(id=>{const rows=C.concejales.filter(r=>r.eleccion_id===id).sort((a,b)=>b.concejales-a.concejales);
+    const row=document.createElement('div');row.className='seatrow';const y=document.createElement('span');y.className='y';y.textContent=rows[0].eleccion;
+    const dots=document.createElement('div');dots.className='dots';
+    rows.forEach(r=>{parties.add(r.partido);for(let i=0;i<r.concejales;i++){const c=document.createElement('i');c.style.transitionDelay=(S.querySelectorAll('.dots i').length*45)+'ms';c.style.background=col(r.partido);c.title=r.partido;dots.appendChild(c)}});
+    const sm=document.createElement('small');sm.textContent=rows.map(r=>r.partido+' '+r.concejales).join(' · ');dots.appendChild(sm);row.append(y,dots);S.appendChild(row)});
+  onSeen(S,()=>S.classList.add('in'));
+  legend('lg-seats',[...parties].map(p=>[p==='AOI'?'AOI (candidatura local)':p,col(p)]));
+  const tb=document.querySelector('#tabla tbody');tb.textContent='';
+  C.particip.filter(p=>p.tipo==='generales').sort((a,b)=>a.fecha.localeCompare(b.fecha)).forEach(p=>{const tr=document.createElement('tr');
+    const vals=['PSOE','PP','Vox','Cs','Podemos, IU y Sumar','Otros'].map(g=>{const s=C.shares.find(x=>x.eleccion_id===p.eleccion_id&&x.grupo===g);return [g,s?s.pct:null]});
+    const mx=Math.max(...vals.map(v=>v[1]||0));const td0=document.createElement('td');td0.textContent=p.eleccion.replace('Abr','abril').replace('Nov','nov.');tr.appendChild(td0);
+    vals.forEach(([g,v])=>{const td=document.createElement('td');td.textContent=pf(v);if(v===mx){td.className='w';td.style.color=col(g)}tr.appendChild(td)});
+    const tp=document.createElement('td');tp.textContent=pf(p.pct);tr.appendChild(tp);tb.appendChild(tr)});
+}
+Promise.all(['poblacion','votos','participacion','censo'].map(f=>d3.csv('datos/'+f+'.csv'))).then(([poblacion,votos,participacion,censo])=>{
+  votos.forEach(v=>v.votos=+v.votos);D={poblacion,votos,participacion,censo};C=compute(D);draw();
+  let w=innerWidth,t;addEventListener('resize',()=>{clearTimeout(t);t=setTimeout(()=>{if(innerWidth!==w){w=innerWidth;draw()}},200)});
+  matchMedia('(prefers-color-scheme: dark)').addEventListener('change',draw);
+}).catch(()=>{document.getElementById('lead').innerHTML='<span class="err">No se han podido cargar los datos. Recarga la página.</span>'});
+</script>
+</body>
+</html>
